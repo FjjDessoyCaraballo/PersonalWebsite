@@ -12,7 +12,7 @@ export default function Header() {
 				Home
 				</Link>
 				<Link href="/projects" className="text-gray-600 hover:text-gray-900">
-				Work
+				Projects
 				</Link>
 				<Link href="/experience" className="text-gray-600 hover:text-gray-900">
 				Experience
