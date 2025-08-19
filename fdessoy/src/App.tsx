@@ -1,9 +1,11 @@
 import { Header } from './Header'
+import { Bio } from './Bio'
 
 function App() {
   return (
-    <>
+    <div className="p4">
       <Header />
+      <Bio />
       <div className="p-4 space-y-4">
         <h1 className="text-2xl mb-4 font-bold">Font Tests:</h1>
         
@@ -39,7 +41,7 @@ function App() {
           </p>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

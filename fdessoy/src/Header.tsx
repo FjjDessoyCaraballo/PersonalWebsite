@@ -1,11 +1,14 @@
-import { useState } from 'react'
-
 export const Header: React.FC = () => {
 	return(
-		<header className="shadow-sm border-b text-3xl">
-			<div className="max-w-6xl mx-auto px-1 py-2 bg-red-500 font-vt323">
+		<header className="shadow-sm border-b text-3xl py-2 bg-red-500">
+			<a 
+			href="/"
+			className="max-w-6xl mx-auto px-7 py-2 "
+			target="_blank"
+			rel="noopener noreferrer"
+			>
 				Felipe Dessoy Caraballo
-			</div>
+			</a>
 		</header>
 	)
 }
