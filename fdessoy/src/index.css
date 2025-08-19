@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-vt323);
+  --font-mono: var(--font-geist-mono);
+  --font-retro: var(--font-vt323);
+}
 
 @layer base {
   html {
