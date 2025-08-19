@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --font-vt323: "VT323", monospace;
+@layer base {
+  html {
+    --font-vt323: "VT323", monospace;
+  }
 }
