@@ -1,4 +1,4 @@
-import { type ProjectsProps, ProjectsList } from './ListOfProjects';
+import { type ProjectsProps, type ProjectData, ProjectsList } from './ListOfProjects';
 
 export const Portfolio: React.FC = () => {
 	return (
@@ -10,8 +10,14 @@ export const Portfolio: React.FC = () => {
 				bit quirky. That's kinda just how I am.
 			</p>
 			{/* 2-column grid: title plus description to the left and gif to the right */}
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start space-y-4">
-				<Projects project={ProjectsList[0]} description={ProjectsList[0]} />
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+				{Object.values(ProjectsList).map((projectData, index) => (
+					<Projects
+					key={index} 
+					project={projectData.project} 
+					description={projectData.description}
+					/>
+				))}
 			</div>
 		</div>
 	)
