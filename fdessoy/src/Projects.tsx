@@ -10,14 +10,19 @@ export const Portfolio: React.FC = () => {
 				bit quirky. That's kinda just how I am.
 			</p>
 			{/* 2-column grid: title plus description to the left and gif to the right */}
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-				{Object.values(ProjectsList).map((projectData, index) => (
-					<Projects
-					key={index} 
-					project={projectData.project} 
-					description={projectData.description}
-					/>
-				))}
+			<div className="space-y-8">
+					{Object.values(ProjectsList).map((projectData, index) => (
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+							<Projects
+							key={index} 
+							project={projectData.project} 
+							description={projectData.description}
+							/>
+							<div className="bg-gray-100 h-48 flex items-center justify-center rounded-lg">
+								<span className="text-grey-500">GIF placeholder for {projectData.project}</span>
+							</div>
+						</div>
+					))}
 			</div>
 		</div>
 	)
@@ -26,8 +31,8 @@ export const Portfolio: React.FC = () => {
 const Projects: React.FC<ProjectsProps> = ({project, description}) => {
 	return (
 		<div className="space-y-4">
-			<h4>{project}</h4>
-			<p>{description}</p>
+			<h4 className="text-2xl font-bold">{project}</h4>
+			<p className="text-gray-700 leading-relaxed">{description}</p>
 		</div>
 	)
 }
