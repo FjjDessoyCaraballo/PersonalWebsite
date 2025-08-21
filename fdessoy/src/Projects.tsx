@@ -1,4 +1,4 @@
-import { type ProjectsProps, type ProjectData, ProjectsList } from './ListOfProjects';
+import { type ProjectsProps, ProjectsList } from './ListOfProjects';
 
 export const Portfolio: React.FC = () => {
 	return (
@@ -32,7 +32,7 @@ const Projects: React.FC<ProjectsProps> = ({project, description}) => {
 	return (
 		<div className="space-y-4">
 			<h4 className="text-2xl font-bold">{project}</h4>
-			<p className="text-gray-700 leading-relaxed">{description}</p>
+			<p className="text-gray-700 text-xl leading-relaxed">{description}</p>
 		</div>
 	)
 }

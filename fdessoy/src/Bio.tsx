@@ -2,7 +2,7 @@ import felipePhoto from './assets/fdessoy-.jpg'
 
 export const Bio: React.FC = () => {
 	return (
-		<div className="p-6 space-y-4">
+		<div className="p-40 space-y-4">
 			<h1 className="flex items-center underline justify-center text-7xl mx-auto">Who?</h1>
 			{/* 2-column grid */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start space-y-4">
@@ -25,7 +25,7 @@ export const Bio: React.FC = () => {
 					</p>
 				</div>
 				{/* photo */}
-				<div className="flex justify-center py-25">
+				<div className="flex justify-center py-5">
 					<img
 						src={felipePhoto}
 						alt="Felipe"
