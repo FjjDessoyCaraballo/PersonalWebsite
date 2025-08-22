@@ -31,13 +31,14 @@ import minishell from './assets/minishell.gif'
 import transcendence from './assets/ft_transcendence.gif'
 import irc from './assets/ft_irc.gif'
 import ezra from './assets/ezra.png'
+import webcrawler from './assets/webcrawler.gif'
 
 
 let ProjectsList: ProjectsCollection = {
 	webcrawler: {
 		project: "Webcrawler", 
 		description1: "I built a Python-based web crawler that systematically extracts logos from websites using async HTTP requests and SQLite storage. The system includes intelligent scoring algorithms to evaluate logo detection confidence and respects robots.txt protocols. I implemented both crawler and fetcher components that work together to discover and download company logos from domain lists.",
-		gifPath: "./assets/"
+		gifPath: webcrawler
 	},
 	ft_transcendence: {
 		project: "ft_transcendence",
