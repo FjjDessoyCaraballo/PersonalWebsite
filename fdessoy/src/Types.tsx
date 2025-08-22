@@ -28,6 +28,9 @@ intro = "This is my magical portfolio! Wooosh! But seriously, all these projects
 
 import cub3d from './assets/cub3d.gif'
 import minishell from './assets/minishell.gif'
+import transcendence from './assets/ft_transcendence.gif'
+import irc from './assets/ft_irc.gif'
+import ezra from './assets/ezra.png'
 
 
 let ProjectsList: ProjectsCollection = {
@@ -39,7 +42,7 @@ let ProjectsList: ProjectsCollection = {
 	ft_transcendence: {
 		project: "ft_transcendence",
 		description1: "My team developed a full-stack multiplayer gaming platform featuring Pong and Block Battle games with real-time gameplay powered by Socket.IO. The backend uses Node.js with Fastify, JWT authentication, and SQLite storage, while the frontend is built with React, TypeScript, and HTML5 Canvas for game rendering. I implemented user authentication, UI/UX, and GDPR compliance features, all containerized with Docker.",
-		gifPath: "./assets/"
+		gifPath: transcendence
 
 	},
 	minishell: {
@@ -51,7 +54,7 @@ let ProjectsList: ProjectsCollection = {
 	ft_irc: {
 		project: "ft_irc",
 		description1: "My team created an IRC server in C++ that's IRC client compliant, implementing network programming with TCP sockets. The server accepts port and password parameters and includes planned features for port validation, password policies, and encryption considerations. The project demonstrates low-level network programming and protocol implementation skills.",
-		gifPath: "./assets/cub3d.gif"
+		gifPath: irc
 
 	},
 	cub3d: {
@@ -62,7 +65,7 @@ let ProjectsList: ProjectsCollection = {
 	ezra: {
 		project: "Ezra",
 		description1: " I created a Python GUI application using Tkinter for preserving educational content from the defunct BRL Center website through the Internet Archive's Wayback Machine. The tool systematically scrapes and downloads ZIP files while implementing respectful rate limiting and progress tracking with SQLite caching.",
-		gifPath: "./assets/"
+		gifPath: ezra
 
 	},
 }
