@@ -1,38 +1,44 @@
-import { type ProjectsProps, ProjectsList } from './ListOfProjects';
+import { type ProjectsProps, type TextProps } from './Types';
+import felipePhoto1 from './assets/me1.png'
+import felipePhoto2 from './assets/me2.png'
 
-export const Portfolio: React.FC = () => {
+export const WallOfText: React.FC<TextProps> = ( {text} ) => {
 	return (
-		<div className="p-6 space-y-4">
+		<div className="p-25 space-y-4">
 			<h1 className="flex items-center underline justify-center text-7xl mx-auto">What?</h1>
-			<p className="flex items-center justify-center text-2xl mx-auto">
-				This is my magical portfolio! Wooosh! But seriously, all these projects represented
-				a milestone in my professional growth as a software developer. Even if some look a
-				bit quirky. That's kinda just how I am.
-			</p>
-			{/* 2-column grid: title plus description to the left and gif to the right */}
-			<div className="space-y-8">
-					{Object.values(ProjectsList).map((projectData, index) => (
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-							<Projects
-							key={index} 
-							project={projectData.project} 
-							description={projectData.description}
-							/>
-							<div className="bg-gray-100 h-48 flex items-center justify-center rounded-lg">
-								<span className="text-grey-500">GIF placeholder for {projectData.project}</span>
-							</div>
-						</div>
-					))}
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex items-center justify-center">
+				<div className="flex space-x-4 justify-center">
+					<img
+						src={felipePhoto2}
+						alt="DrawingOfFelipe"
+						className="w-72 h-94 border object-cover rounded-lg shadow-lg"
+					/>
+					<img
+						src={felipePhoto1}
+						alt="DrawingOfFelipe"
+						className="w-72 h-94 border object-cover rounded-lg shadow-lg"
+					/>
+
+				</div>
+				<div className="space-y-4">
+					<p className="flex items-center justify-left text-2xl mx-auto">{text}</p>
+				</div>
+			
 			</div>
 		</div>
 	)
 }
 
-const Projects: React.FC<ProjectsProps> = ({project, description}) => {
+export const Projects: React.FC<ProjectsProps> = ({ project, description, gifPath }) => {
 	return (
-		<div className="space-y-4">
-			<h4 className="text-2xl font-bold">{project}</h4>
-			<p className="text-gray-700 text-xl leading-relaxed">{description}</p>
+		<div className="p-12 grid grid-cols-1 md:grid-cols-2 gap-6 flex items-center justify-center">
+				<div className="space-y-4">
+					<h4 className="text-2xl font-bold">{project}</h4>
+					<p className="text-gray-700 text-xl leading-relaxed">{description}</p>
+				</div>
+				<div className="bg-gray-100 border object-cover h-48 flex items-center justify-center rounded-lg shadow-lg">
+					<img src={gifPath ? `${gifPath}` : undefined}/>
+				</div>
 		</div>
 	)
 }
