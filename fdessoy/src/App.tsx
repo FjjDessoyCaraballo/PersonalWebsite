@@ -12,7 +12,7 @@ function App() {
       <motion.section className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.9 }}
+        viewport={{ amount: 0.7 }}
         >
         <Bio />
       </motion.section>
@@ -22,7 +22,7 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.8 }}
+        viewport={{ amount: 0.7 }}
         >
         <WallOfText text={intro} />
       </motion.section>
@@ -32,11 +32,13 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.8 }}
+        viewport={{ amount: 0.7 }}
         >
         <Projects 
           project={ProjectsList.ezra.project} 
-          description={ProjectsList.ezra.description}
+          description1={ProjectsList.ezra.description1}
+          description2={ProjectsList.ezra.description2}
+          description3={ProjectsList.ezra.description2}
           gifPath={ProjectsList.ezra.gifPath}
         />
       </motion.section>
@@ -45,24 +47,43 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.8 }}
+        viewport={{ amount: 0.7 }}
         >
         <Projects 
           project={ProjectsList.ft_transcendence.project} 
-          description={ProjectsList.ft_transcendence.description}
+          description1={ProjectsList.ft_transcendence.description1}
+          description2={ProjectsList.ft_transcendence.description2}
+          description3={ProjectsList.ft_transcendence.description2}
           gifPath={ProjectsList.ft_transcendence.gifPath}
         />
       </motion.section>
 
-            <motion.section 
+      <motion.section 
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.8 }}
+        viewport={{ amount: 0.7 }}
+        >
+        <Projects 
+          project={ProjectsList.cub3d.project} 
+          description1={ProjectsList.cub3d.description1}
+          description2={ProjectsList.cub3d.description2}
+          description3={ProjectsList.cub3d.description2}
+          gifPath={ProjectsList.cub3d.gifPath}
+        />
+      </motion.section>
+
+      <motion.section 
+        className="h-screen flex items-center justify-center"
+        initial={{ opacity: 0, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ amount: 0.7 }}
         >
         <Projects 
           project={ProjectsList.ft_irc.project} 
-          description={ProjectsList.ft_irc.description}
+          description1={ProjectsList.ft_irc.description1}
+          description2={ProjectsList.ft_irc.description2}
+          description3={ProjectsList.ft_irc.description2}
           gifPath={ProjectsList.ft_irc.gifPath}
         />
       </motion.section>
@@ -71,25 +92,28 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.8 }}
+        viewport={{ amount: 0.7 }}
         >
         <Projects 
           project={ProjectsList.webcrawler.project} 
-          description={ProjectsList.webcrawler.description}
+          description1={ProjectsList.webcrawler.description1}
+          description2={ProjectsList.webcrawler.description2}
+          description3={ProjectsList.webcrawler.description2}
           gifPath={ProjectsList.webcrawler.gifPath}
         />
       </motion.section>
-
 
       <motion.section 
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.8 }}
+        viewport={{ amount: 0.7 }}
         >
         <Projects 
           project={ProjectsList.minishell.project} 
-          description={ProjectsList.minishell.description}
+          description1={ProjectsList.minishell.description1}
+          description2={ProjectsList.minishell.description2}
+          description3={ProjectsList.minishell.description2}
           gifPath={ProjectsList.minishell.gifPath}
         />
       </motion.section>

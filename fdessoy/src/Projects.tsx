@@ -29,14 +29,23 @@ export const WallOfText: React.FC<TextProps> = ( {text} ) => {
 	)
 }
 
-export const Projects: React.FC<ProjectsProps> = ({ project, description, gifPath }) => {
+export const Projects: React.FC<ProjectsProps> = ({ project, description1, description2, description3, gifPath }) => {
 	return (
 		<div className="p-12 grid grid-cols-1 md:grid-cols-2 gap-6 flex items-center justify-center">
 				<div className="space-y-4">
 					<h4 className="text-2xl font-bold">{project}</h4>
-					<p className="text-gray-700 text-xl leading-relaxed">{description}</p>
+					<p className="text-gray-700 text-xl leading-relaxed">
+						{description1}
+					</p>
+					<p className="text-gray-700 text-xl leading-relaxed">
+						{description2}
+					</p>
+					<p className="text-gray-700 text-xl leading-relaxed">
+						{description3}
+					</p>
+
 				</div>
-				<div className="bg-gray-100 border object-cover h-48 flex items-center justify-center rounded-lg shadow-lg">
+				<div className="bg-gray-100 object-cover h-48 flex items-center justify-center rounded-lg shadow-lg">
 					<img src={gifPath ? `${gifPath}` : undefined}/>
 				</div>
 		</div>
