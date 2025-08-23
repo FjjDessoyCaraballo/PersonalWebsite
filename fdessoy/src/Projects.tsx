@@ -18,7 +18,7 @@ export const WallOfText: React.FC<TextProps> = ( {text} ) => {
 					/>
 
 				</div>
-				<div className="space-y-4 min-w-0">
+				<div className="space-y-4">
 					<p className="flex items-center justify-left text-2xl mx-auto">{text}</p>
 				</div>
 			

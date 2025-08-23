@@ -3,7 +3,7 @@ import felipePhoto2 from './assets/portfolio.gif'
 
 export const Bio: React.FC = () => {
 	return (
-		<div className="p-15 space-y-4">
+		<div className="px-15 py-50 space-y-4">
 			<h1 className="flex items-center underline justify-center text-7xl mx-auto">Who?</h1>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
 			{/* 2-column grid */}

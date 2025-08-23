@@ -32,7 +32,7 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.7 }}
+        viewport={{ amount: 0.6 }}
         >
         <Projects 
           project={ProjectsList.ezra.project} 
@@ -47,7 +47,7 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.7 }}
+        viewport={{ amount: 0.6 }}
         >
         <Projects 
           project={ProjectsList.ft_transcendence.project} 
@@ -62,7 +62,7 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.7 }}
+        viewport={{ amount: 0.6 }}
         >
         <Projects 
           project={ProjectsList.cub3d.project} 
@@ -77,7 +77,7 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.7 }}
+        viewport={{ amount: 0.6 }}
         >
         <Projects 
           project={ProjectsList.ft_irc.project} 
@@ -92,7 +92,7 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.7 }}
+        viewport={{ amount: 0.6 }}
         >
         <Projects 
           project={ProjectsList.webcrawler.project} 
@@ -107,7 +107,7 @@ function App() {
         className="h-screen flex items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ amount: 0.7 }}
+        viewport={{ amount: 0.6 }}
         >
         <Projects 
           project={ProjectsList.minishell.project} 
