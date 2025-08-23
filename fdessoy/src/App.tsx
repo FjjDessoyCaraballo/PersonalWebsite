@@ -9,7 +9,7 @@ function App() {
     <div className="p4">
       
       {/* BIO */}
-      <motion.section className="h-screen flex items-center justify-center"
+      <motion.section className="h-screen items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.7 }}
@@ -19,7 +19,7 @@ function App() {
 
       {/* INTRO TO PROJECTS SECTION */}
       <motion.section 
-        className="h-screen flex items-center justify-center"
+        className="h-screen items-center justify-center"
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.7 }}

@@ -4,23 +4,21 @@ import felipePhoto2 from './assets/me2.png'
 
 export const WallOfText: React.FC<TextProps> = ( {text} ) => {
 	return (
-		<div className="p-25 space-y-4">
+		<div className="p-15 space-y-4">
 			<h1 className="flex items-center underline justify-center text-7xl mx-auto">What?</h1>
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex items-center justify-center">
-				<div className="flex space-x-4 justify-center">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+				<div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
 					<img
 						src={felipePhoto2}
-						alt="DrawingOfFelipe"
-						className="w-72 h-94 border object-cover rounded-lg shadow-lg"
+						className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
 					/>
 					<img
 						src={felipePhoto1}
-						alt="DrawingOfFelipe"
-						className="w-72 h-94 border object-cover rounded-lg shadow-lg"
+						className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
 					/>
 
 				</div>
-				<div className="space-y-4">
+				<div className="space-y-4 min-w-0">
 					<p className="flex items-center justify-left text-2xl mx-auto">{text}</p>
 				</div>
 			

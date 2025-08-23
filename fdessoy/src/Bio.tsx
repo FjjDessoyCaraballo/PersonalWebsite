@@ -3,9 +3,9 @@ import felipePhoto2 from './assets/portfolio.gif'
 
 export const Bio: React.FC = () => {
 	return (
-		<div className="p-25 space-y-4">
+		<div className="p-15 space-y-4">
 			<h1 className="flex items-center underline justify-center text-7xl mx-auto">Who?</h1>
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center space-y-4">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
 			{/* 2-column grid */}
 				{/* bio text */}
 				<div className="space-y-4">
@@ -24,16 +24,16 @@ export const Bio: React.FC = () => {
 					</p>
 				</div>
 				{/* IMG OR GIF */}
-				<div className="flex space-x-4 justify-center">
+				<div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
 					<img
 						src={felipePhoto1 ? `${felipePhoto1}` : undefined}
 						alt="Felipe"
-						className="w-72 h-94 border object-cover rounded-lg shadow-lg"
+						className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
 					/>
 					<img
 						src={felipePhoto2 ? `${felipePhoto2}` : undefined}
 						alt="Felipe@CruzandoConversas"
-						className="w-72 h-94 border object-cover rounded-lg shadow-lg"
+						className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
 					/>
 				</div>
 			</div>
