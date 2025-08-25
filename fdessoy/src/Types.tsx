@@ -27,3 +27,16 @@ export interface TextProps {
 	image2?: string;
 	side?: boolean;
 }
+
+export interface ContactProps {
+	title: string;
+	text?: string;
+	external_url?: string;
+	qr_code?: string;
+}
+
+let blushPink: string;
+
+blushPink = "#F0DCDC"
+
+export { blushPink }
