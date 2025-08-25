@@ -1,8 +1,12 @@
-// import { Header } from './Header'
-import { Bio } from './Bio'
-import { Projects, WallOfText } from './Projects'
+
+import { Projects, TextBox } from './Projects'
 import { motion } from "motion/react"
-import { ProjectsList, intro } from './Types';
+import { introWhat, introWho1, introWho2, introWho3 } from './Content';
+import { ProjectsList } from './ProjectsList'
+import image1 from './assets/me1.png'
+import image2 from './assets/me2.png'
+import felipePhoto1 from './assets/fdessoy-.jpg'
+import felipePhoto2 from './assets/portfolio.gif'
 
 function App() {
   return (
@@ -14,7 +18,14 @@ function App() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.7 }}
         >
-        <Bio />
+        <TextBox
+          title="Who?"
+          text1={introWho1}
+          text2={introWho2}
+          text3={introWho3}
+          image1={felipePhoto1}
+          image2={felipePhoto2}
+          />
       </motion.section>
 
       {/* INTRO TO PROJECTS SECTION */}
@@ -24,7 +35,13 @@ function App() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ amount: 0.7 }}
         >
-        <WallOfText text={intro} />
+        <TextBox 
+          title="What?"
+          text1={introWhat} 
+          image1={image1} 
+          image2={image2}
+          side={true}
+        />
       </motion.section>
 
       {/* PROJECTS SECTION */}
