@@ -1,83 +1,64 @@
-import { type ProjectsProps, type TextProps } from './Types';
-
-
-export const TextBox: React.FC<TextProps> = ( {title, text1, text2, text3, image1, image2, side} ) => {
-	if (side === true) {
-		return (
-			<div className="px-6 sm:px-15 py-20 sm:py-25 space-y-4">
-				<h1 className="flex items-center underline justify-center text-7xl mx-auto">{title}</h1>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-					<div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
-						<img
-							src={image1}
-							alt="image1"
-							className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
-						/>
-						<img
-							src={image2}
-							alt="image2"
-							className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
-						/>
-
-					</div>
-					<div className="text-2xl space-y-4">
-						<p className="flex items-center justify-left text-2xl mx-auto">{text1}<br/></p>
-						<p className="flex items-center justify-left text-2xl mx-auto">{text2}<br/></p>
-						<p className="flex items-center justify-left text-2xl mx-auto">{text3}</p>
-					</div>
-				
-				</div>
-			</div>
-		)
-	}
-	else
-	{
-		return (
-			<div className="px-6 sm:px-15 py-20 sm:py-25 space-y-4">
-				<h1 className="flex items-center underline justify-center text-7xl mx-auto">{title}</h1>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-					<div className="text-2xl space-y-4">
-						<p className="flex items-center justify-left text-2xl mx-auto">{text1}<br/></p>
-						<p className="flex items-center justify-left text-2xl mx-auto">{text2}<br/></p>
-						<p className="flex items-center justify-left text-2xl mx-auto">{text3}</p>
-					</div>
-					<div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
-						<img
-							src={image1}
-							alt="image1"
-							className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
-						/>
-						<img
-							src={image2}
-							alt="image2"
-							className="w-48 sm:w-64 h-60 sm:h-82 border object-cover rounded-lg shadow-lg"
-						/>
-					</div>
-				</div>
-			</div>
-		)
-	}
-}
+import { type ProjectsProps } from './Types';
+import { motion } from 'motion/react';
+import { useState } from 'react'; 
 
 export const Projects: React.FC<ProjectsProps> = ({ project, description1, description2, description3, gifPath }) => {
+	const [isZoomed, setIsZoomed] = useState(false)
+	
 	return (
-		<div className="p-12 grid grid-cols-1 md:grid-cols-2 gap-6 flex items-center justify-center">
+        <motion.section 
+          className="h-screen flex items-center justify-center"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ amount: 0.6 }}
+          >
+			<div className="p-12 grid grid-cols-1 md:grid-cols-2 gap-6 items-center justify-center">
 				<div className="space-y-4">
-					<h4 className="text-2xl font-bold">{project}</h4>
-					<p className="text-gray-700 text-xl leading-relaxed">
-						{description1}
-					</p>
-					<p className="text-gray-700 text-xl leading-relaxed">
-						{description2}
-					</p>
-					<p className="text-gray-700 text-xl leading-relaxed">
-						{description3}
-					</p>
-
+					<motion.h4 
+						className="text-2xl font-bold"
+						initial={{ y: -200 }}
+						whileInView={{ y: 0 }}
+						transition={{ delay: 0.2 }}
+						>
+							{project}
+					</motion.h4>
+						<motion.p 
+							className="text-gray-700 text-xl leading-relaxed"
+							initial={{ x: -100 }}
+							whileInView={{ x: 0 }}
+							transition={{ delay: 0.1 }}
+							>
+								{description1}<br/>
+						</motion.p>
+						<motion.p 
+							className="text-gray-700 text-xl leading-relaxed"
+							initial={{ x: -100 }}
+							whileInView={{ x: 0 }}
+							transition={{ delay: 0.2 }}
+							>
+								{description2}<br/>
+						</motion.p>
+						<motion.p 
+							className="text-gray-700 text-xl leading-relaxed"
+							initial={{ x: -100 }}
+							whileInView={{ x: 0 }}
+							transition={{ delay: 0.3 }}
+							>
+								{description3}<br/>
+						</motion.p>
 				</div>
-				<div className="bg-gray-100 object-cover h-48 flex items-center justify-center rounded-lg shadow-lg">
-					<img src={gifPath ? `${gifPath}` : undefined}/>
-				</div>
-		</div>
+				<motion.div 
+					className="h-80 w-full bg-gray-100 rounded-lg shadow-lg overflow-hiddden"
+					onClick={() => setIsZoomed(!isZoomed)}
+					animate={{ 
+						scale: isZoomed ? 2 : 1, 
+						y: isZoomed ? "-10%": 0, 
+						x: isZoomed ? "-50%": 0 
+					}}
+					>
+					<img src={gifPath} className="w-full h-full object-cover rounded-lg"/>
+				</motion.div>
+			</div>
+		</motion.section>
 	)
 }

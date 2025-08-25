@@ -1,3 +1,11 @@
+export interface ProjectsProps {
+	project: string;
+	description1: string;
+	description2?: string
+	description3?: string
+	gifPath?: string;
+}
+
 interface ProjectData {
 	project: string;
 	description1: string;
@@ -19,4 +27,3 @@ export interface TextProps {
 	image2?: string;
 	side?: boolean;
 }
-

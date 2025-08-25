@@ -22,7 +22,6 @@ let ProjectsList: ProjectsCollection = {
 		project: "Minishell", 
 		description1: "Me and Leo Storey recreated core bash shell functionality in C, implementing pipes, redirections, built-in commands (echo, cd, pwd, export, unset, env, exit), and proper signal handling for CTRL+C, CTRL+, and CTRL+D. I collaborated with a partner using structured Git workflows and achieved 100% completion on this systems programming project.",
 		gifPath: minishell
-
 	},
 	ft_irc: {
 		project: "ft_irc",
@@ -39,7 +38,6 @@ let ProjectsList: ProjectsCollection = {
 		project: "Ezra",
 		description1: " I created a Python GUI application using Tkinter for preserving educational content from the defunct BRL Center website through the Internet Archive's Wayback Machine. The tool systematically scrapes and downloads ZIP files while implementing respectful rate limiting and progress tracking with SQLite caching.",
 		gifPath: ezra
-
 	},
 }
 
