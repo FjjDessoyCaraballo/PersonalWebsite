@@ -19,19 +19,19 @@ function App() {
     <div className="min-h-screen border-l-14 border-r-14 border-[#F0DCDC]">
 
       {/* QUICK NAVIGATION BUTTONS */}
-      <button className="fixed bottom-30 right-6 bg-[#F0DCDC] text-gray-400 px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
+      <button className="fixed bottom-30 right-6 bg-[#F0DCDC] text-gray-400 border px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
         onClick={() => bioRef.current?.scrollIntoView({ behavior: 'smooth' })}
         >
         Bio
       </button>
       
-      <button className="fixed bottom-18 right-6 bg-[#F0DCDC] text-gray-400 px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
+      <button className="fixed bottom-18 right-6 bg-[#F0DCDC] text-gray-400 border px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
         onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
         >
         Portfolio
       </button>
       
-      <button className="fixed bottom-6 right-6 bg-[#F0DCDC] text-gray-400 px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
+      <button className="fixed bottom-6 right-6 bg-[#F0DCDC] text-gray-400 border px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
         onClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth' })}
         >
         Contact
@@ -75,7 +75,7 @@ function App() {
         {/* CONTACT SECTION */}
         <Contact 
           ref={contactRef}
-          title="Contact"
+          title="Felipe Dessoy Caraballo"
         />
       </div>
     </div>
