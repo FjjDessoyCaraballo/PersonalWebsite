@@ -1,13 +1,15 @@
 import { type ProjectsProps } from './Types';
 import { motion } from 'motion/react';
-import { useState } from 'react'; 
+import { useState } from 'react';
+import { IconBrandGithub, IconExternalLink } from '@tabler/icons-react';
 
 export const Projects: React.FC<ProjectsProps> = ({ 
     project, 
     description1, 
     description2, 
     description3, 
-    gifPath 
+    gifPath,
+    link
 }) => {
     const [isZoomed, setIsZoomed] = useState(false);
     
@@ -32,7 +34,7 @@ export const Projects: React.FC<ProjectsProps> = ({
                     >
                         {/* Project Title */}
                         <motion.h2 
-                            className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 dark:text-gray-500"
+                            className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-700 dark:text-gray-700"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ amount: 0.3, once: true }}
@@ -78,6 +80,33 @@ export const Projects: React.FC<ProjectsProps> = ({
                                     {description3}
                                 </motion.p>
                             )}
+
+                            {/* link to project */}
+                            <motion.div
+                                className="pt-4"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ amount: 0.3, once: true }}
+                                transition={{ duration: 0.5, delay: 0.6 }}
+                            >
+                                <motion.a
+                                    href={link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-100 to-rose-100 hover:from-pink-200 hover:to-rose-200 text-gray-700 px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300"
+                                    whileHover={{ 
+                                        scale: 1.05,
+                                        y: -2,
+                                        transition: { duration: 0.2 }
+                                    }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <IconBrandGithub size={20} />
+                                        <span>View project</span>
+                                    <IconExternalLink size={16} className="opacity-70" />
+                                </motion.a>
+                            </motion.div>
+                            
                         </div>
                     </motion.div>
                     

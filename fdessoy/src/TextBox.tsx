@@ -18,7 +18,7 @@ export const TextBox = forwardRef<HTMLDivElement, TextProps>(
                 <div className="container mx-auto px-6 lg:px-8 max-w-7xl">
                     {/* Title */}
                     <motion.h1 
-                        className="text-4xl lg:text-5xl xl:text-6xl font-bold text-center mb-12 lg:mb-16 underline decoration-2 underline-offset-8"
+                        className="text-4xl lg:text-5xl xl:text-6xl font-bold text-center mb-12 lg:mb-16 underline decoration-2 underline-offset-8 text-gray-700 dark:text-gray-700"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ amount: 0.3, once: true }}
@@ -38,17 +38,17 @@ export const TextBox = forwardRef<HTMLDivElement, TextProps>(
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
                             {text1 && (
-                                <p className="text-lg lg:text-2xl leading-relaxed text-gray-700 dark:text-gray-700">
+                                <p className="text-lg lg:text-2xl leading-relaxed text-gray-500 dark:text-gray-500">
                                     {text1}
                                 </p>
                             )}
                             {text2 && (
-                                <p className="text-lg lg:text-2xl leading-relaxed text-gray-700 dark:text-gray-700">
+                                <p className="text-lg lg:text-2xl leading-relaxed text-gray-500 dark:text-gray-500">
                                     {text2}
                                 </p>
                             )}
                             {text3 && (
-                                <p className="text-lg lg:text-2xl leading-relaxed text-gray-700 dark:text-gray-700">
+                                <p className="text-lg lg:text-2xl leading-relaxed text-gray-500 dark:text-gray-500">
                                     {text3}
                                 </p>
                             )}

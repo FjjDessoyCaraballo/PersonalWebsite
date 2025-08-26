@@ -4,6 +4,7 @@ export interface ProjectsProps {
 	description2?: string
 	description3?: string
 	gifPath?: string;
+	link?: string;
 }
 
 interface ProjectData {
@@ -12,6 +13,7 @@ interface ProjectData {
 	description2?: string;
 	description3?: string;
 	gifPath: string;
+	link?: string;
 }
 
 export interface ProjectsCollection {

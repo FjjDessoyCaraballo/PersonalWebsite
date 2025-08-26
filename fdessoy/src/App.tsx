@@ -1,12 +1,11 @@
 
 import { Projects } from './Projects';
 import { TextBox } from './TextBox';
-import { Contact } from './Contact'
-import { introWhat1, introWho1, introWho2, introWho3, introWhere1 } from './Content';
-import { ProjectsList } from './ProjectsList'
+import { Contact } from './Contact';
+import { Stack } from './Stack';
+import { ProjectsList, portfolio1, portfolio2, portfolio3,bio1, bio2, bio3} from './Content';
 import { useRef } from 'react';
 import { Welcome } from './Welcome'
-import { motion } from 'motion/react'
 import image1 from './assets/me1.png';
 import image2 from './assets/me2.png';
 import felipePhoto1 from './assets/fdessoy-.jpg';
@@ -50,18 +49,23 @@ function App() {
         <TextBox
           ref={bioRef}
           title="Bio"
-          text1={introWho1}
-          text2={introWho2}
-          text3={introWho3}
+          text1={bio1}
+          text2={bio2}
+          text3={bio3}
           image1={felipePhoto1}
           image2={felipePhoto2}
           />
+
+        {/* STACK INFO */}
+        <Stack />
 
         {/* INTRO TO PROJECTS SECTION */}
         <TextBox 
           ref={portfolioRef}
           title="Portfolio"
-          text1={introWhat1} 
+          text1={portfolio1}
+          text2={portfolio2} 
+          text3={portfolio3}  
           image1={image1} 
           image2={image2}
           side={true}
@@ -76,6 +80,7 @@ function App() {
             description2={projectData.description2}
             description3={projectData.description3}
             gifPath={projectData.gifPath}
+            link={projectData.link}
           />
         ))}
 

@@ -35,7 +35,7 @@ export const Contact = forwardRef<HTMLDivElement, ContactProps>(
         return (
             <motion.section
                 ref={ref}
-                className="bg-gradient-to-br from-[#F0DCDC] to-[#E8B5B5] border-t"
+                className="bg-gradient-to-br from-[#F0DCDC] to-[#E8B5B5]"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ amount: 0.3, once: true }}
