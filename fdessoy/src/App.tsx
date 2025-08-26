@@ -5,6 +5,8 @@ import { Contact } from './Contact'
 import { introWhat1, introWho1, introWho2, introWho3, introWhere1 } from './Content';
 import { ProjectsList } from './ProjectsList'
 import { useRef } from 'react';
+import { Welcome } from './Welcome'
+import { motion } from 'motion/react'
 import image1 from './assets/me1.png';
 import image2 from './assets/me2.png';
 import felipePhoto1 from './assets/fdessoy-.jpg';
@@ -18,27 +20,32 @@ function App() {
   return (
     <div className="min-h-screen border-l-14 border-r-14 border-[#F0DCDC]">
 
-      {/* QUICK NAVIGATION BUTTONS */}
-      <button className="fixed bottom-30 right-6 bg-[#F0DCDC] text-gray-400 border px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
+      {/* QUICK NAVIGATION BUTTONS [NOT DONE] */}
+      {/* <motion.div 
+        >
+      <button className="fixed bottom-30 right-6 bg-[#F0DCDC] transition-colors ease-in-out duration-600 hover:bg-white z-50 text-gray-400 border px-4 py-2 rounded-lg shadow-lg"
         onClick={() => bioRef.current?.scrollIntoView({ behavior: 'smooth' })}
         >
         Bio
       </button>
       
-      <button className="fixed bottom-18 right-6 bg-[#F0DCDC] text-gray-400 border px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
+      <button className="fixed bottom-18 right-6 bg-[#F0DCDC] transition-colors ease-in-out duration-600 hover:bg-white z-50 text-gray-400 border px-4 py-2 rounded-lg shadow-lg "
         onClick={() => portfolioRef.current?.scrollIntoView({ behavior: 'smooth' })}
         >
         Portfolio
       </button>
       
-      <button className="fixed bottom-6 right-6 bg-[#F0DCDC] text-gray-400 border px-4 py-2 rounded-lg shadow-lg hover:bg-white z-50"
+      <button className="fixed bottom-6 right-6 bg-[#F0DCDC] transition-colors ease-in-out duration-600 hover:bg-white z-50 text-gray-400 border px-4 py-2 rounded-lg shadow-lg "
         onClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth' })}
         >
         Contact
       </button>
+      </motion.div> */}
 
       <div className="p4">
-        
+        {/* WELCOME MAT */}
+        <Welcome />
+
         {/* BIO */}
         <TextBox
           ref={bioRef}
