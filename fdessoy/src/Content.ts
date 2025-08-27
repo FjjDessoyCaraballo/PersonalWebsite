@@ -4,9 +4,9 @@ let bio1: string;
 let bio2: string;
 let bio3: string;
 
-bio1 = "My name is Felipe Justo José Dessoy Caraballo. I'm a full stack engineer with a passion to help people."
+bio1 = "My name is Felipe Justo José Dessoy Caraballo. I'm a full stack engineer with a passion for helping."
 bio2 = "Born in Brazil, I have been going against the odds and did some quite amazing things such as speak on live television, move to another continent, and meet two Finnish Prime Ministers! Ask me personally about that one."
-bio3 = "In 2018 I decided to follow my dream to finally start programming, and that's when I bought a comprehensive C++ course in Udemy. Since then, I have been dreaming to become a professional software developer. "
+bio3 = "In 2018 I decided to follow my dream to finally start programming, and that's when I completed a comprehensive C++ course in Udemy. Since then, I have been dreaming to become a professional software developer. "
 
 // portfolio
 
@@ -14,8 +14,8 @@ let portfolio1: string;
 let portfolio2: string;
 let portfolio3: string;
 
-portfolio1 = "In 2023 I made into Hive Helsinki, where I started learning from their peer-to-peer model and I made a serious commitment to becoming a software developer.";
-portfolio2 = "Most of my projects are a result from learning together with my school peers. Some of these projects were made in collaboration with them, and others I planned, designed, and executed myself."
+portfolio1 = "In 2023 I was accepted to Hive Helsinki, where I started learning from their peer-to-peer model and I made a serious commitment to becoming a software developer.";
+portfolio2 = "Most of my projects are a result of from learning together with my school peers. Some of these projects were made in collaboration with them, and others I planned, designed, and executed myself."
 portfolio3 = "My portfolio below might not be surprising to some seasoned senior devs, but I take great pride in everything I have built. Including this website!";
 
 export { bio1, bio2, bio3, portfolio1, portfolio2, portfolio3 }
@@ -33,7 +33,7 @@ import webcrawler from './assets/webcrawler.gif'
 let ProjectsList: ProjectsCollection = {
 	webcrawler: {
 		project: "Webcrawler", 
-        description1: "Written in python, the crawler bot retrieves companies logos in CSV format. It operates in a similar fashion as GPT, Google, and other crawler bots that indexate websites. This was done with minimal external libraries and depends mostly on built-in libraries.",
+        description1: "Written in python, the crawler bot retrieves companies' logos. It operates in a similar fashion as GPT, Google, and other crawler bots that indexate websites. This was done with minimal external libraries and depends mostly on built-in libraries.",
         description2: "This web crawler systematically extracts logos from websites using async HTTP requests and SQLite storage. The system includes intelligent scoring algorithms to evaluate logo detection confidence and respects robots.txt protocols. I implemented both crawler and fetcher components that work together to discover and download company logos from domain lists.",
 		description3: "Libraries/frameworks/technologies used: nix virtual-environment, SQLite3, aiohttp, asyncio",
 		gifPath: webcrawler,
@@ -48,8 +48,8 @@ let ProjectsList: ProjectsCollection = {
 	},
 	minishell: {
 		project: "Minishell", 
-		description1: "Me and Leo Storey recreated core bash shell functionality in C, implementing pipes, redirections, built-in commands (echo, cd, pwd, export, unset, env, exit), and proper signal handling for CTRL+C, CTRL+, and CTRL+D. I collaborated with a partner using structured Git workflows and achieved 100% completion on this systems programming project.",
-        description2: "If you take a look at the technologies used, you will see that there are no major libraries of fancy frameworks being used here. We recreated majority of functionalities from scratch. There were no memory-safety, no null-safety, nothing. Everything had to be written and checked manually. Notwithstanding, most of the other library tools used here were also written by us.",
+		description1: "Leo Storey and I recreated core bash shell functionality in C, implementing pipes, redirections, built-in commands (echo, cd, pwd, export, unset, env, exit), and proper signal handling for CTRL+C, CTRL+, and CTRL+D. I collaborated with a partner using structured Git workflows and achieved 100% completion on this systems programming project.",
+        description2: "If you take a look at the technologies used, you will see that there are no major libraries of fancy frameworks being used here. The majority of functionalities were recreated from scratch. There were no memory-safety, no null-safety, nothing. Everything had to be written and checked manually. Notwithstanding, most of the other library tools used here were also written by us.",
 		description3: "Libraries/frameworks/technologies used: readline, Makefile, signals.",
         gifPath: minishell,
 		link: "https://www.github.com/fjjdessoycaraballo/minishell"
@@ -65,7 +65,7 @@ let ProjectsList: ProjectsCollection = {
 	},
 	cub3d: {
 		project: "cub3d",
-		description1: "A replication of Wolfenstein made in C. Here I did the parsing of the map, and Alexandra did the raycasting. This is another project in which we were highly constrained and could not use external libraries, except for the school own graphics library.",
+		description1: "A replication of Wolfenstein made in C. Here I did the parsing of the map, and Alexandra did the raycasting. This is another project in which we were highly constrained and could not use external libraries, except for the school's own graphics library.",
         description2: "As I mentioned, in this specific project I did the parsing, so I was responsible for cleaning and organizing the input in a way that our program would be able to process. It seems rather easy, except that the input file could've been tampered in almost any possible way, except for a few arbitrary exceptions.",
 		description3: "Libraries/frameworks/technologies used: graphics (MLX42) and ray-casting",
         gifPath: cub3d,
