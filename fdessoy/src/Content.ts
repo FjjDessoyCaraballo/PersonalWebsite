@@ -35,13 +35,14 @@ let ProjectsList: ProjectsCollection = {
 		project: "Webcrawler", 
         description1: "Written in python, the crawler bot retrieves companies' logos. It operates in a similar fashion as GPT, Google, and other crawler bots that indexate websites. This was done with minimal external libraries and depends mostly on built-in libraries.",
         description2: "This web crawler systematically extracts logos from websites using async HTTP requests and SQLite storage. The system includes intelligent scoring algorithms to evaluate logo detection confidence and respects robots.txt protocols. I implemented both crawler and fetcher components that work together to discover and download company logos from domain lists.",
-		description3: "Libraries/frameworks/technologies used: nix virtual-environment, SQLite3, aiohttp, asyncio",
+		description3: "Libraries/frameworks/technologies used: nix virtual-environment, SQLite3, aiohttp, asyncio, poetry",
 		gifPath: webcrawler,
 		link: "https://www.github.com/fjjdessoycaraballo/webcrawler"
 	},
 	ft_transcendence: {
 		project: "ft_transcendence",
 		description1: "My team developed a full-stack multiplayer gaming platform featuring Pong and Block Battle games with real-time gameplay powered by Socket.IO. The backend uses Node.js with Fastify, JWT authentication, and SQLite storage, while the frontend is built with React, TypeScript, and HTML5 Canvas for game rendering. I implemented user authentication, UI/UX, and GDPR compliance features, all containerized with Docker.",
+		description2: "My role was on UI/UX, connecting data pipelines, and GDPR compliance. The frontend was done in React. I established the datapilines through a background JS web worker, making XSS attack proof. Additionally, I designed the layout, UI/UX, and general user management aspects of the frontend. As for GDPR compliance, users can request data download, deletion, and anonymization.",
 		description3: "Libraries/frameworks/technologies used: React, JWT, Node.js, SQLite3, Tailwind CSS, HTML5, WebSockets, Docker, Docker compose, Makefile, REST API, webpack, i18n, fastify.",
         gifPath: transcendence,
 		link: "https://www.github.com/fjjdessoycaraballo/ft_transcendence"
