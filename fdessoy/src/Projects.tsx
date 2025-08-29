@@ -121,12 +121,12 @@ export const Projects: React.FC<ProjectsProps> = ({
                         <motion.div
                             className={`relative cursor-pointer rounded-lg overflow-hidden shadow-xl border-2 border-gray-200 dark:border-gray-700 ${
                                 isZoomed 
-                                    ? 'fixed inset-4 z-50 bg-black bg-opacity-90 flex items-center justify-center' 
+                                    ? 'fixed  inset-4 z-50 bg-black bg-opacity-90 flex items-center justify-center' 
                                     : 'w-full max-w-md lg:max-w-lg'
                             }`}
                             onClick={() => setIsZoomed(!isZoomed)}
                             animate={isZoomed ? {
-                                scale: 1,
+                                scale: 2,
                                 transition: { duration: 0.3 }
                             } : {
                                 scale: 1,
