@@ -8,7 +8,7 @@ import { useRef } from 'react';
 import { Welcome } from './Welcome'
 import image1 from './assets/me1.png';
 import image2 from './assets/me2.png';
-import felipePhoto1 from './assets/fdessoy-.jpg';
+import felipePhoto1 from './assets/fdessoy-.png';
 import felipePhoto2 from './assets/portfolio.gif';
 
 function App() {
