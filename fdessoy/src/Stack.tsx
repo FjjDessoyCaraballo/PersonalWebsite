@@ -3,16 +3,24 @@ import { motion } from 'motion/react';
 export const Stack = () => {
     const stackCategories = [
         {
-            title: "Languages",
+            title: "Programming languages",
             technologies: ["JavaScript/TypeScript", "C", "C++", "Python", "SQL"]
         },
         {
-            title: "Frameworks & Libraries", 
-            technologies: ["React", "pytest", "pydantic", "FastAPI"]
+            title: "Backend Development", 
+            technologies: ["FastAPI", "Flask", "Fastify", "Express.js", "RESTful APIs", "JWT"]
         },
         {
-            title: "Runtime Environments",
-            technologies: ["Docker", "Node.js"]
+            title: "Frontend Development",
+            technologies: ["React.js", "HTML5", "CSS3", "Tailwind CSS", "Webpack", "Vite", "Node.js", "Framer Motion"]
+        },
+        {
+            title: "Databases",
+            technologies: ["SQLite", "PostgreSQL", "MariaDB", "Database Design"]
+        },
+        {
+            title: "DevOps & Tools",
+            technologies: ["Docker", "Docker Compose", "Git", "GitHub", "Linux", "Makefile", "Poetry"]
         }
     ];
         
