@@ -49,20 +49,27 @@ export const Stack = () => {
                     
                     {/* Description Text */}
                     <motion.div 
-                        className="space-y-6 lg:space-y-8"
+                        className="space-y-4 lg:space-y-4"
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ amount: 0.3, once: true }}
                         transition={{ duration: 0.6, delay: 0.4 }}
                     >
-                        <p className="text-lg lg:text-xl leading-relaxed text-gray-500">
+                        <p className="text-lg lg:text-xl leading-relaxed text-gray-500 font-medium">
                             This is my current stack. As previously mentioned, I started studying C++ in 2018, but it was only in 2023 at Hive that I finally started producing professional-grade software.
                         </p>
                         <p className="text-lg lg:text-xl leading-relaxed text-gray-500 font-medium">
-                            You heard me, I said professional-grade.
+                            You heard me, I said <strong>professional-grade</strong>.
                         </p>
-                        <p className="text-base lg:text-lg text-gray-500 italic">
+                        <p className="text-lg lg:text-xl leading-relaxed text-gray-500 font-medium">
+                            I have built a strong foundation in the basics of CS with C/C++. That same foundation made me love working with the backend, but it was my passion for networking that led me to full-stack development. Even though I have quite an eye for design and UI/UX <i>(I mean, check out this beauty of a website)</i>, what I actually enjoy is creating data pipelines: building APIs and seeing data flow from a form on the frontend to the backend, and finally getting nicely stored in a tidy database. That is what I love about full-stack development.
                             Each technology listed represents real project experience and expertise gained through hands-on development.
+                        </p>
+                        <p className="text-lg lg:text-xl leading-relaxed text-gray-500 font-medium">
+                            Currently I am studying <u><a href="https://fullstackopen.com/en/">Full Stack Open</a></u> from Helsinki University's to deepen my knowledge in full stack development while also doing <u><a href="https://www.upwork.com/freelancers/~0146fdd85b1fa783a9?mp_source=share">freelance work</a></u>. If you are a prospective employer, let's get in touch through <u><a href="https://linkedin.com/in/fdessoy">Linkedin</a></u>!
+                        </p>
+                        <p className="text-lg lg:text-m leading-relaxed text-gray-500 font-medium">
+                            <i>Each technology listed represents real project experience and expertise gained through hands-on development.</i>
                         </p>
                     </motion.div>
                     
