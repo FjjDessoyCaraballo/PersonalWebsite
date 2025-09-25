@@ -1,14 +1,14 @@
-import { Projects } from './Projects';
-import { TextBox } from './TextBox';
-import { Contact } from './Contact';
-import { Stack } from './Stack';
-import { ProjectsList, portfolio1, portfolio2, portfolio3,bio1, bio2, bio3 } from './Content';
+import { Projects } from '../components/Projects';
+import { TextBox } from '../components/TextBox';
+import { Contact } from '../components/Contact';
+import { Stack } from '../components/Stack';
+import { ProjectsList, portfolio1, portfolio2, portfolio3,bio1, bio2, bio3 } from '../lib/Content';
 import { useRef } from 'react';
-import { Welcome } from './Welcome'
-import image1 from './assets/me1.png';
-import image2 from './assets/me2.png';
-import felipePhoto1 from './assets/fdessoy-.png';
-import felipePhoto2 from './assets/portfolio.gif';
+import { Welcome } from '../components/Welcome'
+import image1 from '../assets/me1.png';
+import image2 from '../assets/me2.png';
+import felipePhoto1 from '../assets/fdessoy-.png';
+import felipePhoto2 from '../assets/portfolio.gif';
 
 const Home = () => {
     const bioRef = useRef<HTMLDivElement>(null);

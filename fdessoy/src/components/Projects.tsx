@@ -1,4 +1,4 @@
-import { type ProjectsProps } from './Types';
+import { type ProjectsProps } from '../lib/Types';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { IconBrandGithub, IconExternalLink } from '@tabler/icons-react';

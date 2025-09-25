@@ -1,4 +1,4 @@
-import { type TextProps } from './Types';
+import { type TextProps } from '../lib/Types';
 import { motion } from 'motion/react';
 import { forwardRef } from 'react';
 
