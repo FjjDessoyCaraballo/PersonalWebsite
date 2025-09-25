@@ -23,12 +23,12 @@ export { bio1, bio2, bio3, portfolio1, portfolio2, portfolio3 }
 // PROJECTS
 
 import { type ProjectsCollection } from './Types'
-import minishell from './assets/minishell.gif'
-import transcendence from './assets/ft_transcendence.gif'
-import irc from './assets/ft_irc.gif'
-import ezra from './assets/ezra.png'
-import webcrawler from './assets/webcrawler.gif'
-import airguardian from './assets/airguardian.gif'
+import minishell from '../assets/minishell.gif'
+import transcendence from '../assets/ft_transcendence.gif'
+import irc from '../assets/ft_irc.gif'
+import ezra from '../assets/ezra.png'
+import webcrawler from '../assets/webcrawler.gif'
+import airguardian from '../assets/airguardian.gif'
 
 let ProjectsList: ProjectsCollection = {
 	webcrawler: {

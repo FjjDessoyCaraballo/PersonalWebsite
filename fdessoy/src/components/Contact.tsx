@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import type { ContactProps } from './Types';
+import type { ContactProps } from '../lib/Types';
 import { motion } from 'motion/react';
 import { IconBrandLinkedin, IconBrandGithub, IconBrandLinktree, IconMail } from '@tabler/icons-react';
 

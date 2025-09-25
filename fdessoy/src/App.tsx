@@ -1,14 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './Home'
-import Janice from './Janice'
+import Home from './routes/Home'
+import Janice from './routes/Janice'
 
 function App() {
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/janice" element={<Janice />} />
-    </Routes>
-  </BrowserRouter>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/janice" element={<Janice />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App
