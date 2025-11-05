@@ -74,7 +74,7 @@ let ProjectsList: ProjectsCollection = {
 	},
 	ezra: {
 		project: "Ezra",
-		description1: "I created a Python GUI application using Tkinter for preserving educational content from the defunct BRL Center website through the Internet Archive's Wayback Machine. The tool systematically scrapes and downloads ZIP files while implementing respectful rate limiting and progress tracking with SQLite caching.",
+		description1: "I created a Python web scrapping bot with Guided User Interace (GUI) using Tkinter for preserving educational content from the defunct BRL Center website through the Internet Archive's Wayback Machine. The tool systematically scrapes and downloads ZIP files while implementing respectful rate limiting and progress tracking with SQLite caching.",
 		description2: "This particular project is not a great show of skill, but it shows my motivation and passion in coding: helping people with my skills.",
 		description3: "Libraries/frameworks/technologies used: tkinter, HTTP requests, SQLite3, HTMLParser, HTML5",
 		gifPath: ezra,
