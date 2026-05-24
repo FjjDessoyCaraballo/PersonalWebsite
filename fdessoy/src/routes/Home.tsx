@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { Welcome } from '../components/Welcome'
 import image1 from '../assets/me1.png';
 import image2 from '../assets/me2.png';
-import felipePhoto1 from '../assets/fdessoy-.png';
+import felipePhoto1 from '../assets/me3.jpg';
 import felipePhoto2 from '../assets/portfolio.gif';
 
 const Home = () => {
@@ -71,17 +71,7 @@ const Home = () => {
         />
 
         {/* PROJECTS SECTION */}
-        {Object.values(ProjectsList).map((projectData) => ( 
-          <Projects 
-            key={projectData.project}
-            project={projectData.project}
-            description1={projectData.description1}
-            description2={projectData.description2}
-            description3={projectData.description3}
-            gifPath={projectData.gifPath}
-            link={projectData.link}
-          />
-        ))}
+        <Projects projects={ProjectsList}/>
 
         {/* CONTACT SECTION */}
         <Contact 

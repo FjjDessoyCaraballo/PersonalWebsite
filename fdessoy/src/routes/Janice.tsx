@@ -1,101 +1,3 @@
-// import { useEffect, useState } from 'react'
-
-// const Janice = () => {
-//     const [exchangeRate, setExchangeRate] = useState<number | null>(null)
-//     const [loading, setLoading] = useState(true)
-//     const [error, setError] = useState(null)
-//     const [usingCachedData, setUsingCachedData] = useState(false)
-
-//     useEffect(() => {
-        
-//         const fetchExchangeRate = async () => {
-//             try {
-//                 setLoading(true)
-//                 const cachedRate = localStorage.getItem('real_rate')
-//                 const cachedTimestamp = localStorage.getItem('rate_timestamp')
-
-//                 if (cachedTimestamp && cachedRate) {
-//                     const cacheDate = new Date(parseInt(cachedTimestamp))
-//                     const today = new Date()
-
-//                     const isSameDay = cacheDate.toDateString() === today.toDateString()
-//                     if (isSameDay) {
-//                         setExchangeRate(parseFloat(cachedRate))
-//                         setUsingCachedData(true)
-//                         setError(null)
-//                         return
-//                     }
-//                 }
-
-//                 // API call that should be done only ONCE a day to avoid rate limiting
-//                 setUsingCachedData(false)
-//                 const response = await fetch('https://open.er-api.com/v6/latest/USD');
-//                 const data = await response.json()
-                
-//                 // cache data with time stamp for later use (avoiding rate limiting from using ExchangeRate-API free service more than once a day)
-//                 const timestamp = new Date().toString()
-//                 localStorage.setItem('rate_timestamp', timestamp)
-//                 localStorage.setItem('real_rate', data.rates.BRL.toString())
-//                 localStorage.setItem('dollar_rate', data.rates.USD.toString())
-                
-//                 setExchangeRate(data.rates.BRL)
-//                 setError(null)
-//             } catch (error) {
-//                 console.error("Error", error)
-//                 setError("Problem fetching from API")
-//             } finally {
-//                 setLoading(false)
-//             }
-//         }
-//         fetchExchangeRate()
-//     }, [])
-
-//     return (
-//         <div className="p-5">
-//             <p className="text-2xl"><strong><u>PRIVACY NOTICE</u></strong></p>
-//             This endpoint is for the sole purpose of helping my mother Janice with her needs to calculate exchange rates.
-//             It uses ExchangeRate-API which is limited by one call per day. Whenever you use this endpoint, it will store
-//             the results from ExchangeRate-API into your device local storage.
-//             <div className="py-5" >
-//                 {loading && <p>Loading exchange Rate....</p>}
-//                 {error && <p className="text-red-500">Error: {error}</p>}
-//                 {exchangeRate && (
-//                     <div>
-//                         <p>
-//                           Current USD to BRL rate: {exchangeRate}
-//                           {usingCachedData && (
-//                             <p className="text-blue-600 text-sm">Using cached data from today</p>
-//                           )}
-//                         </p>
-//                     </div>
-//                     )}
-//             </div>
-//             <div className="px-2 py-5 border">
-//                 <form onSubmit="handleConvert(event)">
-//                     <input type="number" name="amount" placeholder="Valor" required />
-//                     <div>
-//                         <div>
-//                             <select className="border px-5" name="de">
-//                                 <option value="DOLLAR">DOLLAR</option>
-//                                 <option value="REAL">REAL</option>
-//                             </select>
-//                             </div>
-//                         <div>
-//                             <select className="border px-5" name="para">
-//                                 <option value="REAL">REAL</option>
-//                                 <option value="DOLLAR">DOLLAR</option>
-//                             </select>
-//                             </div>
-//                         <button type="submit">Converter</button>
-//                     </div>
-//                 </form>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Janice
-
 import { useEffect, useState } from 'react'
 
 const Janice = () => {
@@ -269,8 +171,8 @@ const Janice = () => {
         
         <p>
         This endpoint is for the sole purpose of helping my mother with her needs to calculate exchange rates.
-        It uses ExchangeRate-API which is limited by one call per day. Whenever you use this endpoint, it will store
-        the results from ExchangeRate-API into your device local storage.
+        It uses ExchangeRate-API which is limited by one call per day. Whenever you use this endpoint, it will cache
+        the results from ExchangeRate-API into your local storage. I do not collect any data from your session.
         </p>
 
         </div>

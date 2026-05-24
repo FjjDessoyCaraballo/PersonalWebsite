@@ -7,6 +7,10 @@ export interface ProjectsProps {
 	link?: string;
 }
 
+export interface ProjectsCarouselProps {
+	projects: ProjectsCollection;
+}
+
 interface ProjectData {
 	project: string;
 	description1: string;
