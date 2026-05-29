@@ -6,7 +6,7 @@ let bio3: string;
 
 bio1 = "My name is Felipe Justo José Dessoy Caraballo. I'm a full stack engineer with a passion for helping."
 bio2 = "Born in Brazil, I have been going against the odds and did some quite amazing things such as speak on live television, move to another continent, and meet two Finnish Prime Ministers! Ask me personally about that one."
-bio3 = "In 2018 I decided to follow my dream to finally start programming, and that's when I completed a comprehensive C++ course in Udemy. Since then, I have been dreaming to become a professional software developer. "
+bio3 = "In 2018, I decided to follow my dream to finally start programming, and that's when I completed a comprehensive C++ course in Udemy. Since then, I have been dreaming to become a professional software developer. "
 
 // portfolio
 
@@ -38,9 +38,9 @@ import cub3d from '../assets/cub3d.gif'
 let ProjectsList: ProjectsCollection = {
 	Fastwrap: {
 		project: "Fastwrap", 
-		description1: `Written in python, this is containerized backend abstraction solution for chatbots. The Fastwrap is a project that I created together with <u><a href="https://github.com/TsaariII">Nikolai Zharkevich</a></u> where we wanted to simplify the logic of chatbots in the backend, leaving a scalable solution with many endpoints.`,
-		description2: "The idea is quite simple: you host and launch the continers together with your backend and you have many endpoints ready to go. You can monitor token usage with LangSmith, and use any LLM provider (ChatGPT, Claude, Gemini) by just providing the API key in the environment file.",
-		description3: "This is big project that will always be in development for me. We developed our own CI/CD with GitHub Actions to always assure integrity of the whole system. The libraries used for this project: Langchain, pydantic, postgresql, bcrypt, redis, uvicorn, fastapi, pytest, docker, and other technologies.",
+		description1: `Written in python, this is containerized backend abstraction solution for chatbots. Fastwrap is a project I created together with <u><a href="https://github.com/TsaariII">Nikolai Zharkevich</a></u> where we wanted to simplify the logic of chatbots in the backend, leaving a scalable solution with many endpoints.`,
+		description2: "The idea is quite simple: you host and launch the containers together with your backend and you have many endpoints ready to go. You can monitor token usage with LangSmith, and use any LLM provider (ChatGPT, Claude, Gemini) by just providing the API key in the environment file.",
+		description3: "This is a big project that will always be in development for me. We developed our own CI/CD with GitHub Actions to always assure integrity of the whole system. The libraries used for this project are langchain, pydantic, postgresql, bcrypt, redis, uvicorn, fastapi, pytest, docker, and other technologies.",
 		gifPath: fastwrap,
 		link: "https://www.github.com/fjjdessoycaraballo/fastwrap",
 	},

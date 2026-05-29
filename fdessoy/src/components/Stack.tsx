@@ -56,7 +56,7 @@ export const Stack = () => {
                         transition={{ duration: 0.6, delay: 0.4 }}
                     >
                         <p className="text-lg lg:text-xl leading-relaxed text-gray-500 font-medium">
-                            This is my current stack. As previously mentioned, I started studying C++ in 2018, but it was only in 2023 at Hive that I finally started producing professional-grade software, and today I am using Python and shell scripts as my day-to-day work.
+                            This is my current stack. As previously mentioned, I started studying C++ in 2018, but it was at Hive in 2023 that I finally started producing professional-grade software, and today I am using Python and shell scripts as my day-to-day work.
                         </p>
                         <p className="text-lg lg:text-xl leading-relaxed text-gray-500 font-medium">
                             I have built a strong foundation in computer science with C/C++. That same foundation got me interested in working with the backend, but it was my love for networking and its protocols that led me to full stack development. Even though I have quite an eye for design and UI/UX <i>(I mean, check out this beauty of a website)</i>, what really inspires me is creating data pipelines: building APIs and seeing data flow from a form in the frontend to the backend, and finally getting that data nicely stored in a tidy database. That is what I love about full stack development.
@@ -65,7 +65,7 @@ export const Stack = () => {
                             I am currently working in  <u><a href="https://42wolfsburg.de/">42 Wolfsburg</a></u> as a sysadmin (system administrator) facilitating students journey towards software engineering. If you are a prospective employer/client, let's get in touch through <u><a href="https://linkedin.com/in/fdessoy">Linkedin</a></u>!
                         </p>
                         <p className="text-lg lg:text-m leading-relaxed text-gray-500 font-medium">
-                            <i>Each technology listed represents real project experience and expertise gained through hands-on development.</i>
+                            <i>Each listed technology represents real project experience and expertise gained through hands-on development.</i>
                         </p>
                     </motion.div>
                     
