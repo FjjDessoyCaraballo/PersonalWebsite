@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorwork Chart Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f3ec;
+    --paper-deep:#ece8dc;
+    --ink:#1a1a1a;
+    --poppy:#d6273a;
+    --sage:#6e7a52;
+    --line:#d6d1c2;
+    --line-bold:#b3ad9b;
+    --muted:#8a8478;
+    --card:#fffdf7;
+    --shadow:0 1px 0 rgba(26,26,26,.04), 0 8px 24px -14px rgba(26,26,26,.35);
+    --radius:10px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:22px clamp(14px,3vw,32px) 60px}
+
+  /* ---------- header ---------- */
+  header.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:18px;border-bottom:2px solid var(--ink)}
+  .mark{flex:0 0 auto}
+  .title-block h1{
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+    font-size:clamp(26px,4.2vw,40px);line-height:.98;letter-spacing:-.02em;margin:0;
+  }
+  .title-block .sub{color:var(--muted);font-size:14px;margin-top:4px;max-width:52ch}
+  .dims{margin-left:auto;font-size:13px;color:var(--muted);text-align:right}
+  .dims b{font-family:"Bricolage Grotesque";color:var(--ink);font-size:19px}
+
+  /* ---------- toolbar ---------- */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:18px 0 20px}
+  .group{background:var(--card);border:1.5px solid var(--line-bold);border-radius:var(--radius);
+    padding:9px 11px;box-shadow:var(--shadow)}
+  .group .lbl{display:block;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:700}
+  .row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+  button,.btn{font-family:inherit;font-size:13px;font-weight:500;color:var(--ink);
+    background:var(--paper);border:1.5px solid var(--line-bold);border-radius:7px;
+    padding:6px 11px;cursor:pointer;transition:transform .08s ease,background .12s ease,border-color .12s ease}
+  button:hover{background:var(--paper-deep)}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  button.ghost{border-color:var(--line)}
+  :focus-visible{outline:2.5px solid var(--poppy);outline-offset:2px}
+
+  .swatch{width:26px;height:26px;border-radius:6px;border:2px solid var(--line-bold);cursor:pointer;padding:0;position:relative}
+  .swatch.sel{border-color:var(--poppy);box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--poppy)}
+  .swatch.sel::after{content:"";position:absolute;inset:0;border-radius:4px}
+  input[type=color]{width:30px;height:26px;padding:0;border:1.5px solid var(--line-bold);border-radius:6px;background:none;cursor:pointer}
+  input[type=number]{font-family:inherit;font-size:13px;width:52px;padding:5px 6px;border:1.5px solid var(--line-bold);border-radius:6px;background:var(--paper)}
+  input[type=range]{accent-color:var(--poppy);width:110px}
+  .stitch-of{font-size:12px;color:var(--muted)}
+
+  /* ---------- main layout ---------- */
+  .stage{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}
+  @media(max-width:900px){.stage{grid-template-columns:1fr}}
+
+  .chart-card{background:var(--card);border:1.5px solid var(--line-bold);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:14px}
+  .canvas-scroll{overflow:auto;max-width:100%}
+  canvas#chart{display:block;touch-action:none;image-rendering:auto}
+  .hint{font-size:12px;color:var(--muted);margin-top:10px;display:flex;gap:14px;flex-wrap:wrap}
+  .hint kbd{font-family:"Space Grotesk";font-size:11px;background:var(--paper-deep);border:1px solid var(--line-bold);
+    border-bottom-width:2px;border-radius:4px;padding:1px 5px}
+
+  /* ---------- sidebar ---------- */
+  .side{display:flex;flex-direction:column;gap:18px}
+  .panel{background:var(--card);border:1.5px solid var(--line-bold);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .panel h2{font-family:"Bricolage Grotesque";font-weight:600;font-size:15px;margin:0;padding:12px 14px;border-bottom:1.5px solid var(--line);
+    display:flex;align-items:center;gap:8px}
+  .panel h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--poppy)}
+  .panel .body{padding:12px 14px}
+
+  .tabs{display:flex;border-bottom:1.5px solid var(--line)}
+  .tabs button{flex:1;border:0;border-radius:0;background:transparent;padding:11px 6px;font-weight:700;font-size:12.5px;
+    letter-spacing:.02em;color:var(--muted);border-bottom:2.5px solid transparent}
+  .tabs button.on{background:transparent;color:var(--ink);border-bottom-color:var(--poppy)}
+  .tabpane{padding:14px}
+  .tabpane[hidden]{display:none}
+
+  #repeatWrap{display:flex;justify-content:center}
+  canvas#repeat{display:block;border:1px solid var(--line);border-radius:4px;background:#fff}
+
+  #pattern{font-size:12.5px;max-height:340px;overflow:auto}
+  #pattern .prow{display:flex;gap:9px;padding:4px 0;border-bottom:1px dashed var(--line)}
+  #pattern .prow .rn{flex:0 0 62px;font-weight:700;color:var(--ink)}
+  #pattern .prow .rn small{color:var(--muted);font-weight:500}
+  #pattern .prow .seq{color:#3a3a3a}
+  #pattern .empty{color:var(--muted);font-size:13px}
+
+  .save-row{display:flex;gap:7px;margin-bottom:12px}
+  .save-row input[type=text]{flex:1;font-family:inherit;font-size:13px;padding:7px 9px;border:1.5px solid var(--line-bold);border-radius:7px;background:var(--paper)}
+  .save-row button{background:var(--poppy);color:#fff;border-color:var(--poppy)}
+  .save-row button:hover{background:#bf1f31}
+  ul.saves{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:220px;overflow:auto}
+  ul.saves li{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 8px;background:var(--paper);border:1px solid var(--line);border-radius:7px}
+  ul.saves li .nm{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;font-weight:500}
+  ul.saves li .meta{font-size:11px;color:var(--muted);flex:0 0 auto}
+  ul.saves li button{padding:3px 7px;font-size:11px}
+  ul.saves li button.del{color:var(--poppy);border-color:#e7b7bd}
+  .saves-empty{font-size:13px;color:var(--muted)}
+
+  footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="mark" aria-hidden="true">
+      <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+        <path d="M23 5c4 0 6 4 6 8 4-2 9-1 11 2s1 8-2 10c3 2 5 7 3 11s-7 4-11 2c0 4-2 8-6 8s-6-4-6-8c-4 2-9 1-11-2s-1-8 2-10c-3-2-5-7-3-11s7-4 11-2c0-4 2-8 6-8Z" fill="var(--poppy)"/>
+        <circle cx="23" cy="23" r="6.5" fill="var(--ink)"/>
+        <circle cx="23" cy="23" r="2.4" fill="var(--paper)"/>
+      </svg>
+    </span>
+    <div class="title-block">
+      <h1>Colorwork Chart Studio</h1>
+      <div class="sub">Design a two-color knitting chart in the Scandinavian poppy style. Click and drag to fill stitches; the written pattern writes itself.</div>
+    </div>
+    <div class="dims">grid<br><b id="dimReadout">58 × 48</b><br><span id="cellReadout">2784 stitches</span></div>
+  </header>
+
+  <div class="toolbar">
+    <div class="group">
+      <span class="lbl">Tool</span>
+      <div class="row">
+        <button id="tPaint" class="on" data-tool="paint">Paint</button>
+        <button id="tErase" data-tool="erase">Erase</button>
+        <button id="undoBtn" class="ghost" title="Undo (Ctrl+Z)">Undo</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Stitch color (CC)</span>
+      <div class="row" id="ccSwatches"></div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Background (MC)</span>
+      <div class="row" id="mcSwatches"></div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Grid size</span>
+      <div class="row">
+        <input type="number" id="wIn" min="4" max="200" value="58" aria-label="stitches wide"> <span class="stitch-of">w</span>
+        <input type="number" id="hIn" min="4" max="200" value="48" aria-label="rows tall"> <span class="stitch-of">h</span>
+        <button id="resizeBtn" class="ghost">Apply</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Zoom</span>
+      <div class="row"><input type="range" id="zoom" min="9" max="30" value="17" aria-label="cell size"></div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Board</span>
+      <div class="row">
+        <button id="fillBtn" class="ghost">Fill</button>
+        <button id="invertBtn" class="ghost">Invert</button>
+        <button id="clearBtn" class="ghost">Clear</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Read as</span>
+      <div class="row">
+        <button id="flatBtn" class="on" data-mode="flat">Flat (RS/WS)</button>
+        <button id="roundBtn" data-mode="round">In the round</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Export</span>
+      <div class="row">
+        <button id="pngBtn" class="ghost">PNG</button>
+        <button id="txtBtn" class="ghost">Pattern .txt</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <section class="chart-card">
+      <div class="canvas-scroll" id="scroll">
+        <canvas id="chart" role="img" aria-label="Editable knitting chart grid"></canvas>
+      </div>
+      <div class="hint">
+        <span><kbd>drag</kbd> to fill a run</span>
+        <span><kbd>Ctrl</kbd>+<kbd>Z</kbd> undo</span>
+        <span>Bold lines mark every 10th stitch &amp; row</span>
+        <span>Columns count right → left, rows bottom → top</span>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="panel">
+        <div class="tabs" role="tablist">
+          <button id="tabPreview" class="on" role="tab">Repeat preview</button>
+          <button id="tabPattern" role="tab">Written pattern</button>
+        </div>
+        <div class="tabpane" id="panePreview">
+          <div id="repeatWrap"><canvas id="repeat" width="280" height="200"></canvas></div>
+          <p class="stitch-of" style="text-align:center;margin:10px 0 0">Tiled 3 × 2 — how the motif repeats across a project.</p>
+        </div>
+        <div class="tabpane" id="panePattern" hidden>
+          <div id="pattern"><p class="empty">Paint some stitches to generate the row-by-row pattern.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2><span class="dot"></span>Saved charts</h2>
+        <div class="body">
+          <div class="save-row">
+            <input type="text" id="saveName" placeholder="Name this chart…" maxlength="60">
+            <button id="saveBtn">Save</button>
+          </div>
+          <ul class="saves" id="savesList"></ul>
+          <p class="saves-empty" id="savesEmpty">Saved charts live in this browser, just for you.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <span>Bold decade lines &amp; RS/WS reading follow standard chart conventions.</span>
+    <span>Ships blank — bring your own motif.</span>
+  </footer>
+</div>
+
+<script>
+// --- storage shim -------------------------------------------------------
+// window.storage is injected by Claude's artifact sandbox. Outside it (e.g.
+// hosted on your own site) it doesn't exist, so map it onto localStorage.
+// Same-origin, so saved charts persist and stay scoped to your domain.
+if (!window.storage) {
+  window.storage = {
+    async get(key)        { const v = localStorage.getItem(key); return v === null ? null : { key, value: v, shared: false }; },
+    async set(key, value) { localStorage.setItem(key, value); return { key, value, shared: false }; },
+    async delete(key)     { localStorage.removeItem(key); return { key, deleted: true, shared: false }; },
+    async list(prefix="") { const keys = []; for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith(prefix)) keys.push(k); } return { keys, prefix, shared: false }; },
+  };
+}
+// ------------------------------------------------------------------------
+(() => {
+  "use strict";
+
+  // ---------- curated palette ----------
+  const CC_COLORS = ["#1a1a1a","#d6273a","#6e7a52","#e0a526","#26324c","#b4472b"];
+  const MC_COLORS = ["#f5f3ec","#ffffff","#f3e4e1","#e4eceE","#2b2b2b","#1c2536"];
+
+  // ---------- state ----------
+  const S = {
+    w: 58, h: 48,
+    cells: new Uint8Array(58 * 48),
+    cc: "#1a1a1a",
+    mc: "#f5f3ec",
+    tool: "paint",
+    mode: "flat",      // flat | round
+    cell: 17,          // px
+  };
+  const idx = (i, j) => j * S.w + i;
+
+  // ---------- undo ----------
+  const undoStack = [];
+  const snapshot = () => {
+    undoStack.push(S.cells.slice());
+    if (undoStack.length > 40) undoStack.shift();
+  };
+  const undo = () => {
+    const prev = undoStack.pop();
+    if (prev && prev.length === S.cells.length) { S.cells = prev; renderAll(); }
+  };
+
+  // ---------- canvas ----------
+  const canvas = document.getElementById("chart");
+  const ctx = canvas.getContext("2d");
+  const scroll = document.getElementById("scroll");
+
+  function metrics() {
+    const cs = S.cell;
+    const label = Math.max(9, Math.min(13, Math.round(cs * 0.62)));
+    const margin = Math.round(label * 2.1);
+    return { cs, label, margin };
+  }
+
+  function layout() {
+    const { cs, margin } = metrics();
+    const cssW = margin * 2 + S.w * cs;
+    const cssH = margin * 2 + S.h * cs;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    canvas.style.width = cssW + "px";
+    canvas.style.height = cssH + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { cs, margin, cssW, cssH };
+  }
+
+  function draw() {
+    const { cs, margin, label } = metrics();
+    const L = layout();
+    ctx.clearRect(0, 0, L.cssW, L.cssH);
+
+    // chart background
+    ctx.fillStyle = S.mc;
+    ctx.fillRect(margin, margin, S.w * cs, S.h * cs);
+
+    // filled stitches
+    ctx.fillStyle = S.cc;
+    for (let j = 0; j < S.h; j++) {
+      for (let i = 0; i < S.w; i++) {
+        if (S.cells[idx(i, j)]) ctx.fillRect(margin + i * cs, margin + j * cs, cs, cs);
+      }
+    }
+
+    // thin gridlines
+    ctx.strokeStyle = "#d6d1c2";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let i = 0; i <= S.w; i++) { const x = Math.round(margin + i * cs) + .5; ctx.moveTo(x, margin); ctx.lineTo(x, margin + S.h * cs); }
+    for (let j = 0; j <= S.h; j++) { const y = Math.round(margin + j * cs) + .5; ctx.moveTo(margin, y); ctx.lineTo(margin + S.w * cs, y); }
+    ctx.stroke();
+
+    // bold decade lines (columns count from right, rows from bottom)
+    ctx.strokeStyle = "#8a8478";
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    for (let i = 0; i <= S.w; i++) {
+      const fromRight = S.w - i;
+      if (fromRight % 10 === 0) { const x = Math.round(margin + i * cs) + .5; ctx.moveTo(x, margin); ctx.lineTo(x, margin + S.h * cs); }
+    }
+    for (let j = 0; j <= S.h; j++) {
+      const fromBottom = S.h - j;
+      if (fromBottom % 10 === 0) { const y = Math.round(margin + j * cs) + .5; ctx.moveTo(margin, y); ctx.lineTo(margin + S.w * cs, y); }
+    }
+    ctx.stroke();
+
+    // outer border
+    ctx.strokeStyle = "#1a1a1a";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(margin + .5, margin + .5, S.w * cs - 1, S.h * cs - 1);
+
+    // numbers
+    ctx.fillStyle = "#8a8478";
+    ctx.font = `${label}px "Space Grotesk", sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const showCol = cs < 15 ? 5 : 1;
+    for (let i = 0; i < S.w; i++) {
+      const n = S.w - i;
+      if (n % showCol !== 0 && n !== 1) continue;
+      const x = margin + i * cs + cs / 2;
+      ctx.fillText(n, x, margin / 2);
+      ctx.fillText(n, x, margin + S.h * cs + margin / 2);
+    }
+    const showRow = cs < 15 ? 5 : 1;
+    for (let j = 0; j < S.h; j++) {
+      const n = S.h - j;
+      if (n % showRow !== 0 && n !== 1) continue;
+      const y = margin + j * cs + cs / 2;
+      ctx.textAlign = "center";
+      ctx.fillText(n, margin / 2, y);
+      ctx.fillText(n, margin + S.w * cs + margin / 2, y);
+    }
+  }
+
+  // ---------- pointer painting ----------
+  let painting = false, paintVal = 1, lastCell = -1;
+
+  function cellFromEvent(e) {
+    const { cs, margin } = metrics();
+    const r = canvas.getBoundingClientRect();
+    const px = e.clientX - r.left - margin;
+    const py = e.clientY - r.top - margin;
+    const i = Math.floor(px / cs), j = Math.floor(py / cs);
+    if (i < 0 || j < 0 || i >= S.w || j >= S.h) return null;
+    return idx(i, j);
+  }
+  function applyAt(k) {
+    if (k == null || k === lastCell) return;
+    lastCell = k;
+    S.cells[k] = paintVal;
+    draw();
+  }
+  canvas.addEventListener("pointerdown", (e) => {
+    const k = cellFromEvent(e);
+    if (k == null) return;
+    e.preventDefault();
+    snapshot();
+    painting = true; lastCell = -1;
+    paintVal = S.tool === "erase" ? 0 : 1;
+    canvas.setPointerCapture(e.pointerId);
+    applyAt(k);
+  });
+  canvas.addEventListener("pointermove", (e) => { if (painting) applyAt(cellFromEvent(e)); });
+  const endPaint = () => { if (painting) { painting = false; sidePanels(); } };
+  canvas.addEventListener("pointerup", endPaint);
+  canvas.addEventListener("pointercancel", endPaint);
+
+  // ---------- repeat preview ----------
+  const rc = document.getElementById("repeat"), rctx = rc.getContext("2d");
+  function drawRepeat() {
+    const TX = 3, TY = 2, pad = 8;
+    const availW = rc.width - pad * 2, availH = rc.height - pad * 2;
+    const cell = Math.max(1, Math.min(availW / (S.w * TX), availH / (S.h * TY)));
+    const tileW = S.w * cell, tileH = S.h * cell;
+    const totalW = tileW * TX, totalH = tileH * TY;
+    const ox = (rc.width - totalW) / 2, oy = (rc.height - totalH) / 2;
+    rctx.clearRect(0, 0, rc.width, rc.height);
+    rctx.fillStyle = S.mc; rctx.fillRect(ox, oy, totalW, totalH);
+    rctx.fillStyle = S.cc;
+    for (let ty = 0; ty < TY; ty++) for (let tx = 0; tx < TX; tx++) {
+      const bx = ox + tx * tileW, by = oy + ty * tileH;
+      for (let j = 0; j < S.h; j++) for (let i = 0; i < S.w; i++) {
+        if (S.cells[idx(i, j)]) rctx.fillRect(bx + i * cell, by + j * cell, Math.ceil(cell), Math.ceil(cell));
+      }
+    }
+    rctx.strokeStyle = "#d6d1c2"; rctx.lineWidth = 1;
+    rctx.strokeRect(ox + .5, oy + .5, totalW - 1, totalH - 1);
+  }
+
+  // ---------- written pattern ----------
+  function runsFor(j, dir) {
+    const arr = [];
+    for (let i = 0; i < S.w; i++) arr.push(S.cells[idx(i, j)]);
+    const seq = dir === "rtl" ? arr.reverse() : arr;
+    const groups = [];
+    for (const v of seq) {
+      const last = groups[groups.length - 1];
+      if (last && last.v === v) last.n++; else groups.push({ v, n: 1 });
+    }
+    return groups.map(g => `${g.n} ${g.v ? "CC" : "MC"}`).join(", ");
+  }
+  function buildPattern() {
+    const host = document.getElementById("pattern");
+    const anyFilled = S.cells.some(v => v);
+    if (!anyFilled) { host.innerHTML = '<p class="empty">Paint some stitches to generate the row-by-row pattern.</p>'; return; }
+    let html = "";
+    for (let r = 1; r <= S.h; r++) {
+      const j = S.h - r;                 // row 1 = bottom
+      let side = "", dir;
+      if (S.mode === "round") { dir = "rtl"; }
+      else { const rs = (r % 2 === 1); dir = rs ? "rtl" : "ltr"; side = rs ? "RS" : "WS"; }
+      html += `<div class="prow"><span class="rn">Row ${r}${side ? ` <small>${side}</small>` : ""}</span><span class="seq">${runsFor(j, dir)}</span></div>`;
+    }
+    host.innerHTML = html;
+  }
+
+  function sidePanels() { drawRepeat(); buildPattern(); }
+  function renderAll() { draw(); sidePanels(); updateReadouts(); }
+
+  // ---------- readouts ----------
+  function updateReadouts() {
+    document.getElementById("dimReadout").textContent = `${S.w} × ${S.h}`;
+    document.getElementById("cellReadout").textContent = `${(S.w * S.h).toLocaleString()} stitches`;
+  }
+
+  // ---------- swatches ----------
+  function buildSwatches(hostId, colors, key) {
+    const host = document.getElementById(hostId);
+    host.innerHTML = "";
+    colors.forEach(c => {
+      const b = document.createElement("button");
+      b.className = "swatch" + (S[key] === c ? " sel" : "");
+      b.style.background = c;
+      b.title = c;
+      b.setAttribute("aria-label", `${key === "cc" ? "stitch" : "background"} color ${c}`);
+      b.onclick = () => { S[key] = c; renderAll(); refreshSwatchSel(); };
+      host.appendChild(b);
+    });
+    const picker = document.createElement("input");
+    picker.type = "color"; picker.value = S[key];
+    picker.setAttribute("aria-label", "custom color");
+    picker.oninput = () => { S[key] = picker.value; renderAll(); refreshSwatchSel(); };
+    host.appendChild(picker);
+  }
+  function refreshSwatchSel() {
+    buildSwatches("ccSwatches", CC_COLORS, "cc");
+    buildSwatches("mcSwatches", MC_COLORS, "mc");
+  }
+
+  // ---------- toolbar wiring ----------
+  const setToolBtns = () => {
+    document.getElementById("tPaint").classList.toggle("on", S.tool === "paint");
+    document.getElementById("tErase").classList.toggle("on", S.tool === "erase");
+  };
+  document.getElementById("tPaint").onclick = () => { S.tool = "paint"; setToolBtns(); };
+  document.getElementById("tErase").onclick = () => { S.tool = "erase"; setToolBtns(); };
+  document.getElementById("undoBtn").onclick = undo;
+
+  document.getElementById("fillBtn").onclick = () => { snapshot(); S.cells.fill(1); renderAll(); };
+  document.getElementById("clearBtn").onclick = () => { snapshot(); S.cells.fill(0); renderAll(); };
+  document.getElementById("invertBtn").onclick = () => { snapshot(); for (let k = 0; k < S.cells.length; k++) S.cells[k] ^= 1; renderAll(); };
+
+  document.getElementById("flatBtn").onclick = () => { S.mode = "flat"; document.getElementById("flatBtn").classList.add("on"); document.getElementById("roundBtn").classList.remove("on"); buildPattern(); };
+  document.getElementById("roundBtn").onclick = () => { S.mode = "round"; document.getElementById("roundBtn").classList.add("on"); document.getElementById("flatBtn").classList.remove("on"); buildPattern(); };
+
+  document.getElementById("zoom").oninput = (e) => { S.cell = +e.target.value; draw(); };
+
+  document.getElementById("resizeBtn").onclick = () => {
+    const nw = Math.max(4, Math.min(200, +document.getElementById("wIn").value || S.w));
+    const nh = Math.max(4, Math.min(200, +document.getElementById("hIn").value || S.h));
+    const next = new Uint8Array(nw * nh);
+    for (let j = 0; j < Math.min(nh, S.h); j++)
+      for (let i = 0; i < Math.min(nw, S.w); i++)
+        next[j * nw + i] = S.cells[idx(i, j)];
+    snapshot(); S.w = nw; S.h = nh; S.cells = next; renderAll();
+  };
+
+  // ---------- tabs ----------
+  const tabPreview = document.getElementById("tabPreview"), tabPattern = document.getElementById("tabPattern");
+  const panePreview = document.getElementById("panePreview"), panePattern = document.getElementById("panePattern");
+  tabPreview.onclick = () => { tabPreview.classList.add("on"); tabPattern.classList.remove("on"); panePreview.hidden = false; panePattern.hidden = true; drawRepeat(); };
+  tabPattern.onclick = () => { tabPattern.classList.add("on"); tabPreview.classList.remove("on"); panePattern.hidden = false; panePreview.hidden = true; buildPattern(); };
+
+  // ---------- keyboard ----------
+  window.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); undo(); }
+  });
+
+  // ---------- export ----------
+  document.getElementById("pngBtn").onclick = () => {
+    draw();
+    canvas.toBlob((blob) => {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `chart-${S.w}x${S.h}.png`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+  };
+  document.getElementById("txtBtn").onclick = () => {
+    let out = `Colorwork chart  ${S.w} x ${S.h}\nCC = contrast color, MC = main color\nRead: ${S.mode === "round" ? "in the round (all rows right->left)" : "flat (RS right->left, WS left->right)"}\n\n`;
+    for (let r = 1; r <= S.h; r++) {
+      const j = S.h - r;
+      let side = "", dir;
+      if (S.mode === "round") dir = "rtl";
+      else { const rs = r % 2 === 1; dir = rs ? "rtl" : "ltr"; side = rs ? " (RS)" : " (WS)"; }
+      out += `Row ${r}${side}: ${runsFor(j, dir)}\n`;
+    }
+    out += `\nGrid (top row first, # = CC):\n`;
+    for (let j = 0; j < S.h; j++) {
+      let line = "";
+      for (let i = 0; i < S.w; i++) line += S.cells[idx(i, j)] ? "#" : ".";
+      out += line + "\n";
+    }
+    const blob = new Blob([out], { type: "text/plain" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `pattern-${S.w}x${S.h}.txt`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+
+  // ---------- persistent storage ----------
+  const KEY = (name) => `knit:chart:${name}`;
+  function serialize() {
+    let bits = "";
+    for (let k = 0; k < S.cells.length; k++) bits += S.cells[k] ? "1" : "0";
+    return { w: S.w, h: S.h, cc: S.cc, mc: S.mc, bits, ts: Date.now() };
+  }
+  async function saveChart() {
+    const nameEl = document.getElementById("saveName");
+    const name = (nameEl.value || "").trim();
+    if (!name) { nameEl.focus(); return; }
+    try {
+      const r = await window.storage.set(KEY(name), JSON.stringify(serialize()), false);
+      if (!r) { alert("Couldn't save — storage returned nothing."); return; }
+      nameEl.value = "";
+      await refreshSaves();
+    } catch (err) { alert("Save failed: " + err); }
+  }
+  async function loadChart(name) {
+    try {
+      const r = await window.storage.get(KEY(name), false);
+      if (!r) return;
+      const d = JSON.parse(r.value);
+      snapshot();
+      S.w = d.w; S.h = d.h; S.cc = d.cc; S.mc = d.mc;
+      S.cells = new Uint8Array(d.w * d.h);
+      for (let k = 0; k < S.cells.length && k < d.bits.length; k++) S.cells[k] = d.bits[k] === "1" ? 1 : 0;
+      document.getElementById("wIn").value = S.w;
+      document.getElementById("hIn").value = S.h;
+      refreshSwatchSel(); renderAll();
+    } catch (err) { console.error(err); }
+  }
+  async function deleteChart(name) {
+    try { await window.storage.delete(KEY(name), false); await refreshSaves(); }
+    catch (err) { console.error(err); }
+  }
+  async function refreshSaves() {
+    const list = document.getElementById("savesList");
+    const empty = document.getElementById("savesEmpty");
+    let keys = [];
+    try { const res = await window.storage.list("knit:chart:", false); keys = res ? res.keys : []; }
+    catch (err) { keys = []; }
+    list.innerHTML = "";
+    if (!keys.length) { empty.style.display = "block"; return; }
+    empty.style.display = "none";
+    for (const full of keys) {
+      const name = full.replace("knit:chart:", "");
+      let meta = "";
+      try { const r = await window.storage.get(full, false); if (r) { const d = JSON.parse(r.value); meta = `${d.w}×${d.h}`; } } catch (e) {}
+      const li = document.createElement("li");
+      const nm = document.createElement("span"); nm.className = "nm"; nm.textContent = name; nm.title = "Load " + name; nm.onclick = () => loadChart(name);
+      const mt = document.createElement("span"); mt.className = "meta"; mt.textContent = meta;
+      const del = document.createElement("button"); del.className = "del"; del.textContent = "Delete"; del.onclick = () => deleteChart(name);
+      li.append(nm, mt, del);
+      list.appendChild(li);
+    }
+  }
+  document.getElementById("saveBtn").onclick = saveChart;
+  document.getElementById("saveName").addEventListener("keydown", (e) => { if (e.key === "Enter") saveChart(); });
+
+  // ---------- init ----------
+  window.addEventListener("resize", () => draw());
+  refreshSwatchSel();
+  renderAll();
+  refreshSaves();
+})();
+</script>
+</body>
+</html>
