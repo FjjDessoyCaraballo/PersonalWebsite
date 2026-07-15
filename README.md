@@ -6,7 +6,7 @@ A modern, interactive portfolio website showcasing the work and skills of Felipe
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1.12-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## 🚀 Features
+## Features
 
 - **Responsive Design**: Fully responsive layout that works on all device sizes
 - **Smooth Animations**: Beautiful animations powered by Framer Motion
@@ -16,7 +16,7 @@ A modern, interactive portfolio website showcasing the work and skills of Felipe
 - **Project Showcase**: Interactive gallery of personal projects with detailed descriptions
 - **Contact Integration**: Easy-to-use contact section with social media links
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **React 19.1.1** - Modern React with latest features
@@ -37,7 +37,7 @@ A modern, interactive portfolio website showcasing the work and skills of Felipe
 - **TypeScript ESLint** - TypeScript-specific linting rules
 - **Autoprefixer** - CSS vendor prefixes
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 fdessoy/
@@ -61,7 +61,7 @@ fdessoy/
 └── vite.config.ts       # Vite configuration
 ```
 
-## 🎨 Design Features
+## Design Features
 
 - **Retro Typography**: VT323 monospace font for a vintage coding aesthetic
 - **Custom Color Palette**: Blush pink theme (#F0DCDC) with complementary colors
@@ -70,18 +70,7 @@ fdessoy/
 - **Responsive Navigation**: Fixed navigation buttons for easy section jumping
 - **Project Diversity**: Visual presentation of projects spanning C/C++, Python, JavaScript, and various frameworks
 
-## 🏆 Featured Projects
-
-The portfolio showcases several impressive projects:
-
-1. **Airguardian** - Real-time drone monitoring API with FastAPI, PostgreSQL, and Celery for no-fly zone violation detection
-2. **Webcrawler** - Python-based web crawler with async HTTP requests and SQLite storage
-3. **ft_transcendence** - Full-stack multiplayer gaming platform with Socket.IO and React
-4. **Minishell** - Bash shell recreation in C with pipes, redirections, and built-in commands
-5. **ft_irc** - IRC server implementation in C++ with network programming
-6. **Ezra** - Python GUI application for web archiving with Tkinter
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v20.19.0 or higher)
@@ -127,7 +116,7 @@ npm run lint
 npm run type-check
 ```
 
-## 🏗️ Build & Deployment
+## Build & Deployment
 
 ### Production Build
 ```bash
@@ -141,34 +130,6 @@ The build artifacts will be stored in the `dist/` directory.
 - **Netlify**: Drag and drop the `dist` folder or connect via Git
 - **GitHub Pages**: Use GitHub Actions for automated deployment
 - **Any static hosting**: Upload the contents of `dist/` folder
-
-## 🎨 Customization
-
-### Colors
-The main color scheme can be customized in `src/Types.tsx`:
-```typescript
-export const blushPink: string = "#F0DCDC"
-```
-
-### Content
-Update personal information in `src/Content.ts` and project details in `src/ProjectsList.ts`.
-
-To add the Airguardian project, update `src/ProjectsList.ts`:
-```typescript
-airguardian: {
-  project: "Airguardian",
-  description1: "Real-time drone monitoring API middleware built with FastAPI and PostgreSQL. The system detects drones violating no-fly zones within a 1000m radius, automatically logs offenders, and retrieves owner details through external APIs.",
-  description2: "Features background task processing with Celery and RabbitMQ for continuous airspace monitoring. Includes secure authentication, comprehensive logging, and RESTful API endpoints for health checks, drone data, and violation reports.",
-  description3: "Containerized with Docker for easy deployment, uses Poetry for dependency management, and implements proper error handling and database operations with PostgreSQL for persistent storage.",
-  gifPath: airguardian // Add corresponding GIF/image
-}
-```
-
-### Styling
-The project uses Tailwind CSS. Customize styles by:
-- Modifying `src/index.css` for global styles
-- Using Tailwind utility classes in components
-- Extending the Tailwind configuration in `tailwind.config.js`
 
 ## 👨‍💻 About Felipe
 
@@ -185,16 +146,9 @@ Felipe Justo José Dessoy Caraballo is a Brazilian software engineer and politic
 - **GitHub**: [github.com/fjjdessoycaraballo](https://github.com/fjjdessoycaraballo)
 - **Linktree**: [linktr.ee/fdessoy](https://linktr.ee/fdessoy)
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-While this is a personal portfolio, suggestions and feedback are welcome! Feel free to:
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
 
 ---
 
