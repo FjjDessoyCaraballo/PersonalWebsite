@@ -1,4 +1,4 @@
-export default function Knitting() {
+export default function Hanna() {
   return (
     <iframe
       src="/hanna.html"
