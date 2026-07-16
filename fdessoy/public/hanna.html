@@ -133,7 +133,7 @@
       <h1>Colorwork Chart Studio</h1>
       <div class="sub">Design a two-color knitting chart in the Scandinavian poppy style. Click and drag to fill stitches; the written pattern writes itself.</div>
     </div>
-    <div class="dims">grid<br><b id="dimReadout">58 × 48</b><br><span id="cellReadout">2784 stitches</span></div>
+    <div class="dims">grid<br><b id="dimReadout">58 × 48</b><br><span id="cellReadout">2784 stitches</span><br><span id="pinReadout" style="color:var(--sage);font-weight:700">4 pins · 12 rows each</span></div>
   </header>
 
   <div class="toolbar">
@@ -162,6 +162,13 @@
         <input type="number" id="wIn" min="4" max="200" value="58" aria-label="stitches wide"> <span class="stitch-of">w</span>
         <input type="number" id="hIn" min="4" max="200" value="48" aria-label="rows tall"> <span class="stitch-of">h</span>
         <button id="resizeBtn" class="ghost">Apply</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="lbl">Pins (÷ sections)</span>
+      <div class="row">
+        <input type="number" id="pinsIn" min="1" max="40" value="4" aria-label="number of pins"> <span class="stitch-of">pins</span>
       </div>
     </div>
 
@@ -204,7 +211,7 @@
       <div class="hint">
         <span><kbd>drag</kbd> to fill a run</span>
         <span><kbd>Ctrl</kbd>+<kbd>Z</kbd> undo</span>
-        <span>Bold lines mark every 10th stitch &amp; row</span>
+        <span>Green lines split the rows into equal pin sections (left edge numbers each pin)</span>
         <span>Columns count right → left, rows bottom → top</span>
       </div>
     </section>
@@ -239,7 +246,7 @@
   </div>
 
   <footer>
-    <span>Bold decade lines &amp; RS/WS reading follow standard chart conventions.</span>
+    <span>Horizontal guide lines divide your stitches evenly across the pins.</span>
     <span>Ships blank — bring your own motif.</span>
   </footer>
 </div>
@@ -274,6 +281,7 @@ if (!window.storage) {
     tool: "paint",
     mode: "flat",      // flat | round
     cell: 17,          // px
+    pins: 4,           // number of pins -> horizontal sections
   };
   const idx = (i, j) => j * S.w + i;
 
@@ -330,7 +338,7 @@ if (!window.storage) {
       }
     }
 
-    // thin gridlines
+    // thin gridlines (kept so individual stitches stay visible for colorwork)
     ctx.strokeStyle = "#d6d1c2";
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -338,17 +346,17 @@ if (!window.storage) {
     for (let j = 0; j <= S.h; j++) { const y = Math.round(margin + j * cs) + .5; ctx.moveTo(margin, y); ctx.lineTo(margin + S.w * cs, y); }
     ctx.stroke();
 
-    // bold decade lines (columns count from right, rows from bottom)
-    ctx.strokeStyle = "#8a8478";
-    ctx.lineWidth = 1.6;
+    // pin-division lines: HORIZONTAL only, splitting the rows into `pins` equal bands.
+    // (Vertical marker lines removed — not needed for this workflow.)
+    const pins = Math.max(1, S.pins | 0);
+    ctx.strokeStyle = "#6e7a52";     // sage — the guide lines she asked for
+    ctx.lineWidth = 2.6;
     ctx.beginPath();
-    for (let i = 0; i <= S.w; i++) {
-      const fromRight = S.w - i;
-      if (fromRight % 10 === 0) { const x = Math.round(margin + i * cs) + .5; ctx.moveTo(x, margin); ctx.lineTo(x, margin + S.h * cs); }
-    }
-    for (let j = 0; j <= S.h; j++) {
-      const fromBottom = S.h - j;
-      if (fromBottom % 10 === 0) { const y = Math.round(margin + j * cs) + .5; ctx.moveTo(margin, y); ctx.lineTo(margin + S.w * cs, y); }
+    for (let k = 1; k < pins; k++) {
+      const fromBottom = Math.round(S.h * k / pins);
+      const j = S.h - fromBottom;
+      const y = Math.round(margin + j * cs) + .5;
+      ctx.moveTo(margin, y); ctx.lineTo(margin + S.w * cs, y);
     }
     ctx.stroke();
 
@@ -357,7 +365,7 @@ if (!window.storage) {
     ctx.lineWidth = 2;
     ctx.strokeRect(margin + .5, margin + .5, S.w * cs - 1, S.h * cs - 1);
 
-    // numbers
+    // column numbers (top & bottom) — kept for locating stitches
     ctx.fillStyle = "#8a8478";
     ctx.font = `${label}px "Space Grotesk", sans-serif`;
     ctx.textAlign = "center";
@@ -370,14 +378,25 @@ if (!window.storage) {
       ctx.fillText(n, x, margin / 2);
       ctx.fillText(n, x, margin + S.h * cs + margin / 2);
     }
+    // row numbers — right side only (left margin now shows pin sections)
     const showRow = cs < 15 ? 5 : 1;
     for (let j = 0; j < S.h; j++) {
       const n = S.h - j;
       if (n % showRow !== 0 && n !== 1) continue;
       const y = margin + j * cs + cs / 2;
-      ctx.textAlign = "center";
-      ctx.fillText(n, margin / 2, y);
       ctx.fillText(n, margin + S.w * cs + margin / 2, y);
+    }
+    // pin-section labels in the left margin (one number centered per band)
+    ctx.fillStyle = "#6e7a52";
+    ctx.font = `700 ${label}px "Space Grotesk", sans-serif`;
+    for (let k = 0; k < pins; k++) {
+      const a = Math.round(S.h * k / pins);
+      const b = Math.round(S.h * (k + 1) / pins);
+      if (b <= a) continue;
+      const centerFromBottom = (a + b) / 2;
+      const jc = S.h - centerFromBottom;
+      const y = margin + jc * cs;
+      ctx.fillText(String(k + 1), margin / 2, y);
     }
   }
 
@@ -470,6 +489,9 @@ if (!window.storage) {
   function updateReadouts() {
     document.getElementById("dimReadout").textContent = `${S.w} × ${S.h}`;
     document.getElementById("cellReadout").textContent = `${(S.w * S.h).toLocaleString()} stitches`;
+    const pins = Math.max(1, S.pins | 0);
+    const per = Math.round(S.h / pins);
+    document.getElementById("pinReadout").textContent = `${pins} pin${pins > 1 ? "s" : ""} · ${per} row${per !== 1 ? "s" : ""} each`;
   }
 
   // ---------- swatches ----------
@@ -514,6 +536,11 @@ if (!window.storage) {
 
   document.getElementById("zoom").oninput = (e) => { S.cell = +e.target.value; draw(); };
 
+  document.getElementById("pinsIn").addEventListener("input", (e) => {
+    S.pins = Math.max(1, Math.min(40, +e.target.value || 4));
+    draw(); updateReadouts();
+  });
+
   document.getElementById("resizeBtn").onclick = () => {
     const nw = Math.max(4, Math.min(200, +document.getElementById("wIn").value || S.w));
     const nh = Math.max(4, Math.min(200, +document.getElementById("hIn").value || S.h));
@@ -547,7 +574,7 @@ if (!window.storage) {
     });
   };
   document.getElementById("txtBtn").onclick = () => {
-    let out = `Colorwork chart  ${S.w} x ${S.h}\nCC = contrast color, MC = main color\nRead: ${S.mode === "round" ? "in the round (all rows right->left)" : "flat (RS right->left, WS left->right)"}\n\n`;
+    let out = `Colorwork chart  ${S.w} x ${S.h}\nCC = contrast color, MC = main color\nPins: ${S.pins} (rows split into ${S.pins} equal sections)\nRead: ${S.mode === "round" ? "in the round (all rows right->left)" : "flat (RS right->left, WS left->right)"}\n\n`;
     for (let r = 1; r <= S.h; r++) {
       const j = S.h - r;
       let side = "", dir;
@@ -574,7 +601,7 @@ if (!window.storage) {
   function serialize() {
     let bits = "";
     for (let k = 0; k < S.cells.length; k++) bits += S.cells[k] ? "1" : "0";
-    return { w: S.w, h: S.h, cc: S.cc, mc: S.mc, bits, ts: Date.now() };
+    return { w: S.w, h: S.h, cc: S.cc, mc: S.mc, pins: S.pins, bits, ts: Date.now() };
   }
   async function saveChart() {
     const nameEl = document.getElementById("saveName");
@@ -594,10 +621,12 @@ if (!window.storage) {
       const d = JSON.parse(r.value);
       snapshot();
       S.w = d.w; S.h = d.h; S.cc = d.cc; S.mc = d.mc;
+      S.pins = d.pins || 4;
       S.cells = new Uint8Array(d.w * d.h);
       for (let k = 0; k < S.cells.length && k < d.bits.length; k++) S.cells[k] = d.bits[k] === "1" ? 1 : 0;
       document.getElementById("wIn").value = S.w;
       document.getElementById("hIn").value = S.h;
+      document.getElementById("pinsIn").value = S.pins;
       refreshSwatchSel(); renderAll();
     } catch (err) { console.error(err); }
   }
