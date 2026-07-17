@@ -133,7 +133,7 @@
       <h1>Colorwork Chart Studio</h1>
       <div class="sub">Design a two-color knitting chart in the Scandinavian poppy style. Click and drag to fill stitches; the written pattern writes itself.</div>
     </div>
-    <div class="dims">grid<br><b id="dimReadout">58 × 48</b><br><span id="cellReadout">2784 stitches</span><br><span id="pinReadout" style="color:var(--sage);font-weight:700">4 pins · 12 rows each</span></div>
+    <div class="dims">grid<br><b id="dimReadout">58 × 48</b><br><span id="cellReadout">2784 stitches</span></div>
   </header>
 
   <div class="toolbar">
@@ -166,9 +166,10 @@
     </div>
 
     <div class="group">
-      <span class="lbl">Pins (÷ sections)</span>
+      <span class="lbl">Pins (needles)</span>
       <div class="row">
-        <input type="number" id="pinsIn" min="1" max="40" value="4" aria-label="number of pins"> <span class="stitch-of">pins</span>
+        <input type="number" id="pinsIn" min="1" max="20" value="4" aria-label="number of pins">
+        <span class="stitch-of" id="perPinReadout"></span>
       </div>
     </div>
 
@@ -211,7 +212,7 @@
       <div class="hint">
         <span><kbd>drag</kbd> to fill a run</span>
         <span><kbd>Ctrl</kbd>+<kbd>Z</kbd> undo</span>
-        <span>Green lines split the rows into equal pin sections (left edge numbers each pin)</span>
+        <span>Red lines split the stitches across your pins</span>
         <span>Columns count right → left, rows bottom → top</span>
       </div>
     </section>
@@ -246,7 +247,7 @@
   </div>
 
   <footer>
-    <span>Horizontal guide lines divide your stitches evenly across the pins.</span>
+    <span>Red lines divide the stitches evenly across your pins.</span>
     <span>Ships blank — bring your own motif.</span>
   </footer>
 </div>
@@ -281,7 +282,7 @@ if (!window.storage) {
     tool: "paint",
     mode: "flat",      // flat | round
     cell: 17,          // px
-    pins: 4,           // number of pins -> horizontal sections
+    pins: 4,           // number of pins (needles) the round is split across
   };
   const idx = (i, j) => j * S.w + i;
 
@@ -321,6 +322,18 @@ if (!window.storage) {
     return { cs, margin, cssW, cssH };
   }
 
+  // Boundary column indices (from the LEFT) where a pin division line sits.
+  // Stitches are counted from the RIGHT to match the column numbering.
+  function pinBoundaries() {
+    const pins = Math.max(1, S.pins | 0);
+    const out = [];
+    for (let k = 1; k < pins; k++) {
+      const stitchesFromRight = Math.round(k * S.w / pins);
+      out.push(S.w - stitchesFromRight); // column index of the boundary line
+    }
+    return out;
+  }
+
   function draw() {
     const { cs, margin, label } = metrics();
     const L = layout();
@@ -338,7 +351,7 @@ if (!window.storage) {
       }
     }
 
-    // thin gridlines (kept so individual stitches stay visible for colorwork)
+    // thin gridlines
     ctx.strokeStyle = "#d6d1c2";
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -346,26 +359,27 @@ if (!window.storage) {
     for (let j = 0; j <= S.h; j++) { const y = Math.round(margin + j * cs) + .5; ctx.moveTo(margin, y); ctx.lineTo(margin + S.w * cs, y); }
     ctx.stroke();
 
-    // pin-division lines: HORIZONTAL only, splitting the rows into `pins` equal bands.
-    // (Vertical marker lines removed — not needed for this workflow.)
-    const pins = Math.max(1, S.pins | 0);
-    ctx.strokeStyle = "#6e7a52";     // sage — the guide lines she asked for
-    ctx.lineWidth = 2.6;
-    ctx.beginPath();
-    for (let k = 1; k < pins; k++) {
-      const fromBottom = Math.round(S.h * k / pins);
-      const j = S.h - fromBottom;
-      const y = Math.round(margin + j * cs) + .5;
-      ctx.moveTo(margin, y); ctx.lineTo(margin + S.w * cs, y);
+    // pin-division vertical lines — split the stitches evenly across the pins.
+    // (Horizontal decade lines removed: not relevant to this workflow.)
+    const bounds = pinBoundaries();
+    if (bounds.length) {
+      ctx.strokeStyle = "#d6273a";   // poppy accent so needle boundaries stand out
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      for (const i of bounds) {
+        const x = Math.round(margin + i * cs) + .5;
+        ctx.moveTo(x, margin);
+        ctx.lineTo(x, margin + S.h * cs);
+      }
+      ctx.stroke();
     }
-    ctx.stroke();
 
     // outer border
     ctx.strokeStyle = "#1a1a1a";
     ctx.lineWidth = 2;
     ctx.strokeRect(margin + .5, margin + .5, S.w * cs - 1, S.h * cs - 1);
 
-    // column numbers (top & bottom) — kept for locating stitches
+    // numbers
     ctx.fillStyle = "#8a8478";
     ctx.font = `${label}px "Space Grotesk", sans-serif`;
     ctx.textAlign = "center";
@@ -378,25 +392,14 @@ if (!window.storage) {
       ctx.fillText(n, x, margin / 2);
       ctx.fillText(n, x, margin + S.h * cs + margin / 2);
     }
-    // row numbers — right side only (left margin now shows pin sections)
     const showRow = cs < 15 ? 5 : 1;
     for (let j = 0; j < S.h; j++) {
       const n = S.h - j;
       if (n % showRow !== 0 && n !== 1) continue;
       const y = margin + j * cs + cs / 2;
+      ctx.textAlign = "center";
+      ctx.fillText(n, margin / 2, y);
       ctx.fillText(n, margin + S.w * cs + margin / 2, y);
-    }
-    // pin-section labels in the left margin (one number centered per band)
-    ctx.fillStyle = "#6e7a52";
-    ctx.font = `700 ${label}px "Space Grotesk", sans-serif`;
-    for (let k = 0; k < pins; k++) {
-      const a = Math.round(S.h * k / pins);
-      const b = Math.round(S.h * (k + 1) / pins);
-      if (b <= a) continue;
-      const centerFromBottom = (a + b) / 2;
-      const jc = S.h - centerFromBottom;
-      const y = margin + jc * cs;
-      ctx.fillText(String(k + 1), margin / 2, y);
     }
   }
 
@@ -483,15 +486,25 @@ if (!window.storage) {
   }
 
   function sidePanels() { drawRepeat(); buildPattern(); }
-  function renderAll() { draw(); sidePanels(); updateReadouts(); }
+  function renderAll() { draw(); sidePanels(); updateReadouts(); updatePerPin(); }
 
   // ---------- readouts ----------
   function updateReadouts() {
     document.getElementById("dimReadout").textContent = `${S.w} × ${S.h}`;
     document.getElementById("cellReadout").textContent = `${(S.w * S.h).toLocaleString()} stitches`;
-    const pins = Math.max(1, S.pins | 0);
-    const per = Math.round(S.h / pins);
-    document.getElementById("pinReadout").textContent = `${pins} pin${pins > 1 ? "s" : ""} · ${per} row${per !== 1 ? "s" : ""} each`;
+  }
+
+  // stitches-per-pin readout in the toolbar
+  function updatePerPin() {
+    const el = document.getElementById("perPinReadout");
+    if (!el) return;
+    const P = Math.max(1, S.pins | 0), N = S.w;
+    const cuts = [0];
+    for (let k = 1; k <= P; k++) cuts.push(Math.round(k * N / P));
+    const sizes = [];
+    for (let k = 0; k < P; k++) sizes.push(cuts[k + 1] - cuts[k]);
+    const min = Math.min(...sizes), max = Math.max(...sizes);
+    el.textContent = (min === max) ? `${min} sts / pin` : `${min}–${max} sts / pin`;
   }
 
   // ---------- swatches ----------
@@ -536,10 +549,11 @@ if (!window.storage) {
 
   document.getElementById("zoom").oninput = (e) => { S.cell = +e.target.value; draw(); };
 
-  document.getElementById("pinsIn").addEventListener("input", (e) => {
-    S.pins = Math.max(1, Math.min(40, +e.target.value || 4));
-    draw(); updateReadouts();
-  });
+  const pinsIn = document.getElementById("pinsIn");
+  pinsIn.oninput = () => {
+    S.pins = Math.max(1, Math.min(20, +pinsIn.value || 1));
+    draw(); updatePerPin();
+  };
 
   document.getElementById("resizeBtn").onclick = () => {
     const nw = Math.max(4, Math.min(200, +document.getElementById("wIn").value || S.w));
@@ -574,7 +588,7 @@ if (!window.storage) {
     });
   };
   document.getElementById("txtBtn").onclick = () => {
-    let out = `Colorwork chart  ${S.w} x ${S.h}\nCC = contrast color, MC = main color\nPins: ${S.pins} (rows split into ${S.pins} equal sections)\nRead: ${S.mode === "round" ? "in the round (all rows right->left)" : "flat (RS right->left, WS left->right)"}\n\n`;
+    let out = `Colorwork chart  ${S.w} x ${S.h}\nCC = contrast color, MC = main color\nPins (needles): ${S.pins}\nRead: ${S.mode === "round" ? "in the round (all rows right->left)" : "flat (RS right->left, WS left->right)"}\n\n`;
     for (let r = 1; r <= S.h; r++) {
       const j = S.h - r;
       let side = "", dir;
@@ -621,12 +635,11 @@ if (!window.storage) {
       const d = JSON.parse(r.value);
       snapshot();
       S.w = d.w; S.h = d.h; S.cc = d.cc; S.mc = d.mc;
-      S.pins = d.pins || 4;
+      if (typeof d.pins === "number") { S.pins = d.pins; document.getElementById("pinsIn").value = d.pins; }
       S.cells = new Uint8Array(d.w * d.h);
       for (let k = 0; k < S.cells.length && k < d.bits.length; k++) S.cells[k] = d.bits[k] === "1" ? 1 : 0;
       document.getElementById("wIn").value = S.w;
       document.getElementById("hIn").value = S.h;
-      document.getElementById("pinsIn").value = S.pins;
       refreshSwatchSel(); renderAll();
     } catch (err) { console.error(err); }
   }
